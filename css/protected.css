@@ -154,8 +154,8 @@ a{
     max-width: 200px;
 }
 .card-creditos{
-    height: 3.4722222222222223vw;
-    width: 3.4722222222222223vw;
+    height: 3.125vw;
+    width: 3.125vw;
 }
 .text-creditos span{
     font-size: 50px;
@@ -169,6 +169,7 @@ a{
     border: none;
     background: none;
 }
+
   /* Fundo da sobreposição */
 .overlay {
     display: none;
@@ -182,6 +183,7 @@ a{
     align-items: center;
     justify-content: center;
 }
+
   /* Caixa de explicação */
 .overlay-content {
     background: rgb(255, 255, 255);
@@ -197,4 +199,11 @@ a{
     right: 15px;
     font-size: 20px;
     cursor: pointer;
+}
+.header-img{
+    width: 32px;
+    height: 32px;
+}
+.header-container-pt2{
+    display: flex;
 }

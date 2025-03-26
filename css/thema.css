@@ -1,10 +1,16 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
-    display: flex;
+    font-family:Segoe UI, SegoeUI, "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #0c0c0c;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+main{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 20px;
+}
+header {
+    display: block;
 }
 
 /* Estilo do modo escuro */

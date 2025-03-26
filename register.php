@@ -1,10 +1,10 @@
 <?php
-session_start();
+    session_start();
 
-// Verifica se há erros de validação
-if (isset($_GET['error'])) {
-    echo "<p style='color: red;'>Erro ao cadastrar: " . htmlspecialchars($_GET['error']) . "</p>";
-}
+    // Verifica se há erros de validação
+    if (isset($_GET['error'])) {
+        echo "<p style='color: red;'>Erro ao cadastrar: " . htmlspecialchars($_GET['error']) . "</p>";
+    }
 ?>
 
 <!DOCTYPE html>

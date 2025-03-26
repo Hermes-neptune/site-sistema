@@ -1,37 +1,38 @@
 <?php
-session_start();
-require 'processos/db_connect.php';
+    session_start();
 
-// Verifica se os campos obrigatórios foram enviados
-if (!isset($_POST['login'], $_POST['password'])) {
-    header('Location: login.php?error=true');
-    exit();
-}
+    require 'processos/db_connect.php';
 
-$login = $_POST['login'];
-$password = $_POST['password'];
+    // Verifica se os campos obrigatórios foram enviados
+    if (!isset($_POST['login'], $_POST['password'])) {
+        header('Location: login.php?error=true');
+        exit();
+    }
 
-// Gera os hashes para verificar
-$hash_username_password = hash('sha256', $login . $password);
-$hash_email_password = hash('sha256', $login . $password);
+    $login = $_POST['login'];
+    $password = $_POST['password'];
 
-// Tenta fazer login usando o nome de usuário ou o email
-$sql = "SELECT * FROM users WHERE (hash_username_password = ? OR hash_email_password = ?)";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$hash_username_password, $hash_email_password]);
+    // Gera os hashes para verificar
+    $hash_username_password = hash('sha256', $login . $password);
+    $hash_email_password = hash('sha256', $login . $password);
 
-$user = $stmt->fetch();
+    // Tenta fazer login usando o nome de usuário ou o email
+    $sql = "SELECT * FROM users WHERE (hash_username_password = ? OR hash_email_password = ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$hash_username_password, $hash_email_password]);
 
-if ($user) {
-    // Se o usuário for encontrado, inicia a sessão
-    $_SESSION['id'] = $user['id'];
-    header('Location: protected.php');
-    exit();
-} else {
-    // Se não for encontrado, redireciona com erro
-    header('Location: login.php?error=true');
-    exit();
-}
+    $user = $stmt->fetch();
+
+    if ($user) {
+        // Se o usuário for encontrado, inicia a sessão
+        $_SESSION['id'] = $user['id'];
+        header('Location: protected.php');
+        exit();
+    } else {
+        // Se não for encontrado, redireciona com erro
+        header('Location: login.php?error=true');
+        exit();
+    }
 ?>
 <!--
 Cadastro: Quando o usuário se cadastra, são gerados dois hashes:

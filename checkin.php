@@ -1,31 +1,31 @@
 <?php
-session_start();
-require 'vendor/autoload.php';
-require 'processos/db_connect.php';
+    session_start();
+    require 'vendor/autoload.php';
+    require 'processos/db_connect.php';
 
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit();
-}
+    if (!isset($_SESSION['id'])) {
+        header('Location: login.php');
+        exit();
+    }
 
-$user_id = $_SESSION['id'];
-$data_atual = date('Y-m-d');
+    $user_id = $_SESSION['id'];
+    $data_atual = date('Y-m-d');
 
-// Verifica se a presença já foi registrada
-$sql_check = "SELECT COUNT(*) FROM presencas WHERE user_id = ? AND data = ?";
-$stmt_check = $pdo->prepare($sql_check);
-$stmt_check->execute([$user_id, $data_atual]);
-$presenca_existe = $stmt_check->fetchColumn();
+    // Verifica se a presença já foi registrada
+    $sql_check = "SELECT COUNT(*) FROM presencas WHERE user_id = ? AND data = ?";
+    $stmt_check = $pdo->prepare($sql_check);
+    $stmt_check->execute([$user_id, $data_atual]);
+    $presenca_existe = $stmt_check->fetchColumn();
 
-if (!$presenca_existe) {
-    // Registra a presença automaticamente
-    $sql_insert = "INSERT INTO presencas (user_id, data) VALUES (?, ?)";
-    $stmt_insert = $pdo->prepare($sql_insert);
-    $stmt_insert->execute([$user_id, $data_atual]);
-    $presenca_msg = "Presença registrada com sucesso!";
-} else {
-    $presenca_msg = "Presença já registrada para hoje.";
-}
+    if (!$presenca_existe) {
+        // Registra a presença automaticamente
+        $sql_insert = "INSERT INTO presencas (user_id, data) VALUES (?, ?)";
+        $stmt_insert = $pdo->prepare($sql_insert);
+        $stmt_insert->execute([$user_id, $data_atual]);
+        $presenca_msg = "Presença registrada com sucesso!";
+    } else {
+        $presenca_msg = "Presença já registrada para hoje.";
+    }
 ?>
 
 <!DOCTYPE html>

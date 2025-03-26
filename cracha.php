@@ -1,33 +1,33 @@
 <?php
-use chillerlan\QRCode\{QRCode, QROptions};
-require 'vendor/autoload.php';
+    use chillerlan\QRCode\{QRCode, QROptions};
+    require 'vendor/autoload.php';
 
-session_start();
+    session_start();
 
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
-    exit();
-}
+    if (!isset($_SESSION['id'])) {
+        header("Location: login.php");
+        exit();
+    }
 
-require 'processos/db_connect.php'; 
+    require 'processos/db_connect.php'; 
 
-$sql = "SELECT username, email, codigo_unico FROM users WHERE id = ?";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$_SESSION['id']]);
-$users = $stmt->fetch();
+    $sql = "SELECT username, email, codigo_unico FROM users WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['id']]);
+    $users = $stmt->fetch();
 
-if (!$users) {
-    die('Erro: Usuário não encontrado.');
-}
+    if (!$users) {
+        die('Erro: Usuário não encontrado.');
+    }
 
-$options = new QROptions([
-    'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-    'eccLevel' => QRCode::ECC_L,
-    'imageBase64' => true,
-    'scale' => 128,
-]);
+    $options = new QROptions([
+        'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+        'eccLevel' => QRCode::ECC_L,
+        'imageBase64' => true,
+        'scale' => 128,
+    ]);
 
-$qrcode = (new QRCode($options))->render($users['codigo_unico']);
+    $qrcode = (new QRCode($options))->render($users['codigo_unico']);
 ?>
 
 <!DOCTYPE html>
