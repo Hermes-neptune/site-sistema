@@ -81,6 +81,17 @@
           ";
           $pdo->exec($queryMensagens);
 
+          $queryCreditos="
+               CREATE TABLE IF NOT EXISTS creditos (
+                    id_cred int NOT NULL UNIQUE AUTO_INCREMENT,
+                    quantidade int NOT NULL ,
+                    username int NOT NULL UNIQUE,
+                    PRIMARY KEY (id_cred),
+                    FOREIGN KEY (`username`) REFERENCES users(id) ON DELETE CASCADE
+               ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+          ";
+          $pdo->exec($queryCreditos);
+
      } catch (PDOException $e) {
           die("Erro ao conectar ou configurar o banco de dados: " . $e->getMessage());
      }

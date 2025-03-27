@@ -50,13 +50,18 @@
     <header>
         <div class="header-container">
             <div class="header-container-pt1">
-
+                <div class="logo-div">
+                    <img src="img/logo-removebg-preview.png" alt="logo da empresa" class="logo-img" />
+                </div>
             </div>
             <div class="header-container-pt2">
-                <div>
+                <div class="hearder-user-img">
                     <img src="img/user.png" alt="Foto do perfil" class="header-img" />
                 </div>
-                <div>
+
+                <span class="devider"> | </span>
+
+                <div class="div-username">
                     <h4><?php echo htmlspecialchars($usuario['username']); ?>!</h4>
                 </div>
             </div>
@@ -71,9 +76,9 @@
                 </div>
                 <h3>Bem-vindo, <?php echo htmlspecialchars($usuario['username']); ?>!</h3>
                 <div class="card_text">
-                    <p>Seu código: <strong><?php echo htmlspecialchars($usuario['codigo_unico']); ?></strong></p>
+                    <!-- <p>Seu código: <strong><?php echo htmlspecialchars($usuario['codigo_unico']); ?></strong></p> -->
                     <a href="cracha.php">Cracha</a>
-                    <p>Email: <?php echo htmlspecialchars($usuario['email']); ?></p>
+                    <!-- <p>Email: <?php echo htmlspecialchars($usuario['email']); ?></p> -->
                 </div>
                 <div>
                     <label class="theme">
