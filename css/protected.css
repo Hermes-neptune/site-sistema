@@ -39,8 +39,8 @@ h2 {
     width: 200px;
 }
 .card{
-    box-shadow: 0 6px 22px hsla(230, 10%, 5%, 0.5);
-    border-radius: 10px;
+    box-shadow: 0 6px 15px hsla(230, 10%, 5%, 0.5);
+    border-radius: 15px;
     width: 100%;
     margin: 10px;
     padding: 5px;
@@ -144,7 +144,6 @@ h2 {
     margin-top: 10px;
 }
 a{
-    color: hsl(230, 100%, 50%);
     text-decoration: none;
 }
 .creditos-img{
@@ -214,8 +213,8 @@ a{
 .header-container{
     display: flex ;
     justify-content: space-between;
-    margin-left: 20px ;
-    margin-right: 20px;
+    margin-left: 30px ;
+    margin-right: 30px;
 }
 .header-container h4{
     margin: 0px;

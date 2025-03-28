@@ -44,6 +44,7 @@
     <title>Presenças</title>
     <link rel="stylesheet" href="css/protected.css">
     <link rel="stylesheet" href="css/thema.css">
+    <link rel="stylesheet" href="css/hamburguerBtn.css">
 </head>
 
 <body>
@@ -56,13 +57,30 @@
             </div>
             <div class="header-container-pt2">
                 <div class="hearder-user-img">
-                    <img src="img/user.png" alt="Foto do perfil" class="header-img" />
+                    <div class="hamburger-btn" id="hamburgerBtn">
+                        <img src="img/user.png" alt="Foto do perfil" class="header-img" />
+                    </div>
+
+                    <div class="sidebar" id="sidebar">
+                        <div class="slider-div">
+                            <div class="sidebar-footer">
+                                <a class="sair" href="logout.php">Sair</a>
+                            </div>
+                            <div class="sidebar-header">
+                                <img src="img/logo-removebg-preview.png" alt="logo da empresa" class="logo-img" />
+                            </div>
+                            <div class="sidebar-username">
+                                <h4><?php echo htmlspecialchars($usuario['username']); ?></h4>
+                                <p><?php echo htmlspecialchars($usuario['email']); ?></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <span class="devider"> | </span>
 
                 <div class="div-username">
-                    <h4><?php echo htmlspecialchars($usuario['username']); ?>!</h4>
+                    <h4><?php echo htmlspecialchars($usuario['username']); ?></h4>
                 </div>
             </div>
         </div>
@@ -78,7 +96,6 @@
                 <div class="card_text">
                     <!-- <p>Seu código: <strong><?php echo htmlspecialchars($usuario['codigo_unico']); ?></strong></p> -->
                     <a href="cracha.php">Cracha</a>
-                    <!-- <p>Email: <?php echo htmlspecialchars($usuario['email']); ?></p> -->
                 </div>
                 <div>
                     <label class="theme">
@@ -102,7 +119,6 @@
                         </svg>
                     </label>
                 </div>
-                <a class="sair" href="logout.php">Sair</a>
             </div>
 
             <div class="card creditos">
@@ -246,6 +262,7 @@
     </main>
 
     <script src="js/thema.js"></script>
+    <script src="js/hamburguerBtn.js"></script>
     <script>
         function openOverlay(text) {
             document.getElementById("overlay-text").innerText = text;
