@@ -1,6 +1,6 @@
 .hamburger-btn {
-    position: fixed;
-    top: 35px;
+    position: absolute;
+    top: 5px;
     right: 100px;
     z-index: 1000;
     cursor: pointer;
@@ -15,7 +15,7 @@
 }
 
 .hamburger-btn.active {
-    top: 220px;
+    top: 170px;
     right: 260px;
 }
 
@@ -25,6 +25,7 @@
 }
 
 .sidebar {
+    background-color: #fff;
     display: none;
     position: fixed;
     border-radius: 15px;
@@ -33,7 +34,6 @@
     width: 300px;
     max-width: 90%;
     height: auto;
-    background: #ffffff;
     transition: all 0.3s ease;
     z-index: 999;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -44,7 +44,10 @@
 .sidebar.active {
     display: block;
 }
-
+.sidebar-extra{
+    display: flex;
+    justify-content: space-between;
+}
 .sidebar-header img {
     width: 60px;
 }
