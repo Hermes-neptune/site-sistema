@@ -1,14 +1,14 @@
 <?php
-session_start();
+    session_start();
 
-if (isset($_SESSION['id'])) {
-    header('Location: protected.php');
-    exit();
-}
+    if (isset($_SESSION['id'])) {
+        header('Location: protected.php');
+        exit();
+    }
 
-if (isset($_GET['error'])) {
-    echo "<p style='color: red;'>Login inválido!</p>";
-}
+    if (isset($_GET['error'])) {
+        echo "<p style='color: red;'>Login inválido!</p>";
+    }
 ?>
 
 <!DOCTYPE html>

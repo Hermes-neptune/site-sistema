@@ -1,7 +1,12 @@
-h2 {
-    margin-bottom: 20px;
+h2, h3, h4 {
+    margin: 0 0 15px 0;
+    color: #343a40;
 }
 
+a {
+    color: #007bff;
+    text-decoration: none;
+}
 .checklist {
     display: flex;
     justify-content: center;
@@ -39,23 +44,42 @@ h2 {
     width: 200px;
 }
 .card{
-    box-shadow: 0 6px 22px hsla(230, 10%, 5%, 0.5);
-    border-radius: 10px;
+    box-shadow: 0 6px 15px hsla(230, 10%, 5%, 0.5);
+    border-radius: 15px;
     width: 100%;
     margin: 10px;
     padding: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.card-mask {
-    height: 6.944444444444445vw;
-    background-color: var(--gray-color);
-    border-radius: 50%;
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-mask-point {
+    background-color: #e9ecef;
     overflow: hidden;
     display: flex;
     justify-content: center;
+    border-radius: 10px;
 }
+.card-mask {
+    background-color: #e9ecef;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
 .card-img {
-    width: 6.597222222222222vw;
-    height: 6.597222222222222vw;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 .card_text{
     font-size: 12px;
@@ -68,7 +92,7 @@ h2 {
     border-radius: 10px;
     margin: 10px;
     padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
     height: 120px;
 }
 .mensagen-interna{
@@ -79,16 +103,16 @@ h2 {
     align-self: baseline;
 }
 .principal{
-    height: 350px;
     width: 400px;
     max-width: 200px;
+    text-align: center;
 }
 .mensagens{
     width: 36.111111111111114vw;
     align-self: baseline;
 }
 .pendencias{
-    width: 41.666666666666664vw;
+    width: 20vw;
 }
 .noticias{
     height: 300px;
@@ -96,7 +120,7 @@ h2 {
 .tabela {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .tabela th, 
@@ -121,54 +145,69 @@ h2 {
     transition: background-color 0.3s ease;
 }
 .pagination {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    font-size: 0.9rem;
 }
 
 .pagination a {
-    text-decoration: none;
-    margin: 0 5px;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
     border-radius: 5px;
+    transition: background-color 0.2s ease;
 }
 
 .pagination a:hover {
     background-color: #0056b3;
-}
-.sair{
-    margin-top: 10px;
-}
-a{
-    color: hsl(230, 100%, 50%);
     text-decoration: none;
 }
-.creditos-img{
-    padding-top: 40px;
-    padding-bottom: 15px;
+.sair {
+    color: #dc3545;
+    font-weight: bold;
 }
+a{
+    text-decoration: none;
+}
+
 .creditos{
-    height: 150px;
+    height: auto;
     max-width: 200px;
 }
-.card-creditos{
-    height: 3.4722222222222223vw;
-    width: 3.4722222222222223vw;
+
+.creditos-img {
+    padding: 20px 0;
+    text-align: center;
 }
-.text-creditos span{
-    font-size: 50px;
+
+.card-creditos {
+    width: 50px;
+    height: 50px;
+}
+
+.text-creditos {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.text-creditos span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 
 /* Estilização do botão */
 .help-button {
+    background: none;
     cursor: pointer;
     font-size: 20px;
     border: none;
-    background: none;
 }
+
   /* Fundo da sobreposição */
 .overlay {
     display: none;
@@ -182,6 +221,7 @@ a{
     align-items: center;
     justify-content: center;
 }
+
   /* Caixa de explicação */
 .overlay-content {
     background: rgb(255, 255, 255);
@@ -193,8 +233,102 @@ a{
 }
 .close-btn {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
-    font-size: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
     cursor: pointer;
+    color: #6c757d;
+}
+.close-btn:hover {
+    color: #dc3545;
+}
+
+.header-img{
+    width: 32px;
+    height: 32px;
+}
+.header-container-pt2{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.header-container h4{
+    margin: 0px;
+}
+.hearder-user-img{
+    margin-right: 10px;
+}
+.logo-img{
+    width: 50px;
+}
+.div-username{
+    align-content: center;
+    margin-left: 10px;
+}
+.devider{
+    font-size: 20px;
+    align-content: center;
+}
+.card-interno {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.message-list, 
+.pending-list, 
+.news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-item, 
+.pending-item, 
+.news-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.message-item:hover, 
+.pending-item:hover, 
+.news-item:hover,
+.message-item:focus, 
+.pending-item:focus, 
+.news-item:focus {
+    background-color: #e9ecef;
+    outline: none;
+}
+
+.message-date, 
+.news-date {
+    display: block;
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.no-messages, 
+.no-pending, 
+.no-news {
+    padding: 15px;
+    text-align: center;
+    color: #6c757d;
 }
