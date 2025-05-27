@@ -42,6 +42,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Presenças</title>
+        <link rel="shortcut icon" type="imagex/png" href="img/Neptune.png">
         <link rel="stylesheet" href="css/protected.css">
         <link rel="stylesheet" href="css/thema.css">
         <link rel="stylesheet" href="css/hamburguerBtn.css">
@@ -291,8 +292,5 @@
                     }
                 });
                 
-            });
-        </script>
-        </script>
-    </body>
-</html>
+    
+(Content truncated due to size limit. Use line ranges to read in chunks)

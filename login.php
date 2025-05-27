@@ -24,7 +24,7 @@
     <h2 class="title">Login</h2>
     <form action="authenticate.php" method="POST">
     <div class="form-group">
-        <label for="username">Username ou E-mail:</label>
+        <label for="username">RM:</label>
         <input type="text" name="login" required>
     </div>
     

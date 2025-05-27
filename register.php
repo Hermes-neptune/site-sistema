@@ -1,7 +1,6 @@
 <?php
     session_start();
 
-    // Verifica se há erros de validação
     if (isset($_GET['error'])) {
         echo "<p style='color: red;'>Erro ao cadastrar: " . htmlspecialchars($_GET['error']) . "</p>";
     }
@@ -20,8 +19,8 @@
     <h2 class="title">Cadastro de Usuário</h2>
     <form action="register_process.php" method="POST">
     <div class="form-group">
-        <label for="username">Nome de Usuário:</label>
-        <input type="text" name="username" required>
+        <label for="rm">RM:</label>
+        <input type="text" name="rm" required>
     </div>
     <div class="form-group">
         <label for="email">Email:</label>
