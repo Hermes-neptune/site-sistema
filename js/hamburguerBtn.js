@@ -3,11 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     
     hamburgerBtn.addEventListener('click', function() {
-        // Alternar classes active
         this.classList.toggle('active');
         sidebar.classList.toggle('active');
         
-        // Adicionar overlay quando a sidebar estiver aberta
         if (sidebar.classList.contains('active')) {
             createOverlay();
         } else {
@@ -15,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Criar overlay para fechar a sidebar ao clicar fora
     function createOverlay() {
         const overlay = document.createElement('div');
         overlay.id = 'sidebarOverlay';

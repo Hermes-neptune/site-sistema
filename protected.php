@@ -13,7 +13,7 @@
         exit();
     }
 
-    $sql = "SELECT email,username, codigo_unico FROM users WHERE id = ?";
+    $sql = "SELECT email, username, codigo_unico, photo FROM users WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['id']]);
     $usuario = $stmt->fetch();
@@ -21,6 +21,8 @@
     if (!$usuario) {
         die('Erro: Usuário não encontrado.');
     }
+    
+    $user_photo_url = !empty($usuario['photo']) ? htmlspecialchars($usuario['photo']) : 'img/user.png';
 
     $data_inicio_semana = date('Y-m-d', strtotime('monday this week'));
     $data_fim_semana = date('Y-m-d', strtotime('sunday this week'));
@@ -42,7 +44,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Presenças</title>
-        <link rel="shortcut icon" type="imagex/png" href="img/Neptune.png">
+        <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
         <link rel="stylesheet" href="css/protected.css">
         <link rel="stylesheet" href="css/thema.css">
         <link rel="stylesheet" href="css/hamburguerBtn.css">
@@ -59,7 +61,7 @@
                 <div class="header-container-pt2">
                     <div class="hearder-user-img">
                         <div class="hamburger-btn" id="hamburgerBtn">
-                            <img src="img/user.png" alt="Foto do perfil" class="header-img" />
+                            <?php echo '<img src="' . $user_photo_url . '" alt="Foto do perfil" class="header-img" />'; ?>
                         </div>
 
                         <div class="sidebar" id="sidebar">
@@ -94,7 +96,7 @@
             <div class="contend">
                 <div class="card principal">
                     <div class="card-mask">
-                        <img src="img/user.png" alt="Foto do perfil" class="card-img" />
+                        <img src="<?php echo $user_photo_url; ?>" alt="Foto do perfil" class="card-img" />
                     </div>
                     <h3 id="welcome-heading">Bem-vindo, <?php echo htmlspecialchars($usuario['username']); ?>!</h3>
                     <div class="card_text">
@@ -132,7 +134,6 @@
                             <div><a>Seus Pontos</a></div>
                             <Span><?= $total_creditos ?></Span>
 
-                            <!-- Botão que abre a explicação -->
                             <button class="help-button" aria-label="Explicação sobre pontos" data-overlay-text="Esta máquina é um simulador de corrida com volante e pedais!">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 50" aria-hidden="true">
                                     <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 11 A 3 3 0 0 0 22 14 A 3 3 0 0 0 25 17 A 3 3 0 0 0 28 14 A 3 3 0 0 0 25 11 z M 21 21 L 21 23 L 22 23 L 23 23 L 23 36 L 22 36 L 21 36 L 21 38 L 22 38 L 23 38 L 27 38 L 28 38 L 29 38 L 29 36 L 28 36 L 27 36 L 27 21 L 26 21 L 22 21 L 21 21 z"></path>
@@ -241,13 +242,24 @@
                 <h2>Detalhes</h2>
                 <p id="overlay-text"></p>
             </div>
+            
         </div>
+        <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 
         <script src="js/thema.js"></script>
         <script src="js/hamburguerBtn.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Configuração do overlay
                 const overlay = {
                     element: document.getElementById("overlay"),
                     textElement: document.getElementById("overlay-text"),
@@ -265,14 +277,12 @@
                     }
                 };
                 
-                // Eventos para abrir overlay
                 document.querySelectorAll('[data-overlay-text]').forEach(el => {
                     el.addEventListener('click', function() {
                         const text = this.getAttribute('data-overlay-text');
                         overlay.open(text);
                     });
                     
-                    // Permitir ativação por teclado
                     el.addEventListener('keydown', function(e) {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
@@ -282,15 +292,20 @@
                     });
                 });
                 
-                // Fechar overlay
                 document.querySelector('.close-btn').addEventListener('click', () => overlay.close());
                 
-                // Fechar com ESC
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape' && overlay.element.style.display === 'flex') {
                         overlay.close();
                     }
                 });
-                
-    
-(Content truncated due to size limit. Use line ranges to read in chunks)
+
+                overlay.element.addEventListener('click', function(e) {
+                    if (e.target === overlay.element) {
+                        overlay.close();
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

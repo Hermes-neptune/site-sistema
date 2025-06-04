@@ -35,13 +35,14 @@
     <title>Check-in</title>
     <link rel="stylesheet" href="css/thema.css">
     <link rel="stylesheet" href="css/check-in.css">
+    <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
 </head>
 
 <body>
     <div class="container">
         <div class="card check-in">
             <div class="card-mask">
-                <img src="img/user.png" alt="Foto do perfil" class="card-img">
+                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/fotosuser//user.png" alt="Foto do perfil" class="card-img">
             </div>
             <h3>Bem-vindo ao Check-in!</h3>
             <div class="card_text">

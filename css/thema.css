@@ -69,6 +69,7 @@ body.dark-mode .pending-item:focus,
 body.dark-mode .news-item:focus {
     background-color: #3d3d3d;
 }
+
 .theme {
     position: relative;
     display: flex;

@@ -1,18 +1,33 @@
 const toggle = document.getElementById("theme-toggle");
+const logoImages = document.querySelectorAll(".logo-img"); 
 
-// Verifica o estado salvo no localStorage ao carregar a página
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    toggle.checked = true;
+function updateLogos(theme) {
+    const logoSrc = theme === "dark" ? "img/logo-white.png" : "img/logo-black.png";
+    logoImages.forEach(img => {
+        img.src = logoSrc;
+    });
 }
 
-// Adiciona o evento de mudança
+const currentTheme = localStorage.getItem("theme");
+if (currentTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    toggle.checked = true;
+    updateLogos("dark"); 
+} else {
+    document.body.classList.remove("dark-mode"); 
+    toggle.checked = false;
+    updateLogos("light"); 
+}
+
 toggle.addEventListener("change", () => {
     if (toggle.checked) {
         document.body.classList.add("dark-mode");
         localStorage.setItem("theme", "dark");
+        updateLogos("dark"); 
     } else {
         document.body.classList.remove("dark-mode");
         localStorage.setItem("theme", "light");
+        updateLogos("light"); 
     }
 });
+
