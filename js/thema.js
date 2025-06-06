@@ -2,7 +2,7 @@ const toggle = document.getElementById("theme-toggle");
 const logoImages = document.querySelectorAll(".logo-img"); 
 
 function updateLogos(theme) {
-    const logoSrc = theme === "dark" ? "img/logo-white.png" : "img/logo-black.png";
+    const logoSrc = theme === "dark" ? "https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//logo-white.png" : "https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//logo-black.png";
     logoImages.forEach(img => {
         img.src = logoSrc;
     });

@@ -55,7 +55,7 @@
             <div class="header-container">
                 <div class="header-container-pt1">
                     <div class="logo-div">
-                        <img src="img/logo-black.png" alt="logo da empresa" class="logo-img" />
+                        <img src="" alt="logo da empresa" class="logo-img" />
                     </div>
                 </div>
                 <div class="header-container-pt2">
@@ -68,7 +68,7 @@
                             <div class="slider-div">
                                 <div class="sidebar-extra">
                                     <div class="sidebar-header">
-                                        <img src="img/logo-black.png" alt="logo da empresa" class="logo-img" />
+                                        <img src="" alt="logo da empresa" class="logo-img" />
                                     </div>
                                     <div class="sidebar-footer">
                                         <a class="sair" href="logout.php">Sair</a>

@@ -11,7 +11,7 @@
 
     require 'processos/db_connect.php'; 
 
-    $sql = "SELECT username, email, codigo_unico FROM users WHERE id = ?";
+    $sql = "SELECT username, email, codigo_unico, photo FROM users WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['id']]);
     $users = $stmt->fetch();
@@ -20,11 +20,13 @@
         die('Erro: Usuário não encontrado.');
     }
 
+    $user_photo_url = !empty($users['photo']) ? htmlspecialchars($users['photo']) : 'img/user.png';
+
     $options = new QROptions([
         'outputType' => QRCode::OUTPUT_IMAGE_PNG,
         'eccLevel' => QRCode::ECC_L,
         'imageBase64' => true,
-        'scale' => 128,
+        'scale' => 128, 
     ]);
 
     $qrcode = (new QRCode($options))->render($users['codigo_unico']);
@@ -44,7 +46,7 @@
     <div class="container">
         <div class="card-content">
             <div class="card-fita">
-                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/hermesssistem//faixa.svg" alt="">
+                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/hermesssistem//faixa.svg" alt=""> 
             </div>
 
             <header class="card-header">
@@ -58,7 +60,7 @@
             <div class="card-data">
                 <div class="card-image">
                     <div class="card-mask">
-                        <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/fotosuser//user.png" alt="Foto do perfil" class="card-img" />
+                        <img src="<?php echo $user_photo_url; ?>" alt="Foto do perfil" class="card-img" />
                     </div>
                 </div>
 
@@ -66,7 +68,6 @@
                 <h3 class="card-profession">Aluno</h3>
 
                 <div class="card-qrcode">
-                    <!-- Exibe o QR Code do RM do usuário -->
                     <img id="qrcode" src="<?php echo $qrcode; ?>" alt="QR Code do RM">
                 </div>
 
