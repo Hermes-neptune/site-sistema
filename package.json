@@ -1,0 +1,28 @@
+{
+  "name": "site-sistema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocodenodev/site-sistema.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nocodenodev/site-sistema/issues"
+  },
+  "homepage": "https://github.com/nocodenodev/site-sistema#readme",
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "tsx": "^4.15.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "fastify": "^5.3.3"
+  }
+}
