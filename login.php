@@ -23,7 +23,7 @@
 <body>
 <div class="form-container">
     <h2 class="title">Login</h2>
-    <form action="authenticate.php" method="POST">
+    <form action="processos/authenticate.php" method="POST">
     <div class="form-group">
         <label for="username">RM:</label>
         <input type="text" name="login" required>
