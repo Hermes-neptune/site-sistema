@@ -15,7 +15,7 @@ model users {
   email         String       @unique
   password      String
   codigo_unico  Int          @unique
-  creditos      creditos?
+  creditos      creditos[]   @relation("UserCreditos")
   mensagens     mensagens[]
   pendencias    pendencias[]
   presencas     presencas[]
@@ -24,8 +24,8 @@ model users {
 model creditos {
   id_cred    Int    @id @default(autoincrement())
   quantidade Int
-  username   String @unique @map("username")
-  user       users  @relation(fields: [username], references: [id], onDelete: Cascade)
+  username   String
+  user       users  @relation("UserCreditos", fields: [username], references: [username], onDelete: Cascade)
 
   @@map("creditos")
 }

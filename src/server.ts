@@ -8,6 +8,9 @@ import { createUser } from "./routes/users/createUser";
 import fastifyJwt from "@fastify/jwt";
 import { pegarUserPeloId } from "./routes/users/get-user-by-id";
 import { login } from "./routes/auth/login";
+import { pegarCreditosDoUser } from "./routes/creditos/get-creditos-by-user";
+import { AdicionarCreditosAoUser } from "./routes/creditos/add-creditos";
+import { removerCreditosDoUser } from "./routes/creditos/remove-creditos";
 
 const app = fastify();
 
@@ -47,6 +50,10 @@ app.setSerializerCompiler(serializerCompiler);
 app.register(createUser);
 app.register(pegarUserPeloId);
 app.register(login);
+app.register(pegarCreditosDoUser);
+app.register(AdicionarCreditosAoUser)
+app.register(removerCreditosDoUser)
+
 
 app.listen({ port: 3333 }).then(() => {
   console.log("HTTP server running!");
