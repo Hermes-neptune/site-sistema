@@ -14,6 +14,8 @@ import { removerCreditosDoUser } from "./routes/creditos/remove-creditos";
 import { getMensagens } from "./routes/mensagens/get-mensagens";
 import { getNoticias } from "./routes/noticias/get-noticias";
 import { getPendenciasByUser } from "./routes/users/get-pendencias-by-user";
+import { getPresencasSemanaAtual } from "./routes/users/get-presencas-semana";
+import { checkinPresenca } from "./routes/users/checkin-presenca";
 
 const app = fastify();
 
@@ -59,6 +61,8 @@ app.register(removerCreditosDoUser);
 app.register(getMensagens);
 app.register(getNoticias);
 app.register(getPendenciasByUser);
+app.register(getPresencasSemanaAtual);
+app.register(checkinPresenca);
 
 app.listen({ port: 3333 }).then(() => {
   console.log("HTTP server running!");

@@ -5,7 +5,7 @@ import { prisma } from "../../lib/prisma";
 
 export async function getPendenciasByUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
-    "/pendencias/user/:userId",
+    "/users/:userId/pendencias",
     {
       onRequest: [app.authenticate],
       schema: {
