@@ -20,7 +20,9 @@ export async function createUser(app: FastifyInstance) {
           password: z.string().min(3),
         }),
         response: {
-          201: z.void(),
+          201: z.object({
+            message: z.string(),
+          }),
           409: z.object({
             error: z.string(),
           }),
@@ -68,7 +70,9 @@ export async function createUser(app: FastifyInstance) {
         },
       });
 
-      return reply.status(201).send();
+      return reply.status(201).send({
+        message: "Usuário criado com sucesso",
+      });
     }
   );
 }

@@ -16,11 +16,15 @@ import { getNoticias } from "./routes/noticias/get-noticias";
 import { getPendenciasByUser } from "./routes/users/get-pendencias-by-user";
 import { getPresencasSemanaAtual } from "./routes/users/get-presencas-semana";
 import { checkinPresenca } from "./routes/users/checkin-presenca";
+import fastifyStatic from "@fastify/static";
+import path from "path";
+import { getAtualUser } from "./routes/users/get-user-data";
 
 const app = fastify();
 
-app.get("/", () => {
-  return "Hello World";
+app.register(fastifyStatic, {
+  root: path.join(__dirname, "..", "public"),
+  prefix: "/",
 });
 
 app.register(fastifyCors, {
@@ -63,7 +67,8 @@ app.register(getNoticias);
 app.register(getPendenciasByUser);
 app.register(getPresencasSemanaAtual);
 app.register(checkinPresenca);
+app.register(getAtualUser);
 
-app.listen({ port: 3333 }).then(() => {
+app.listen({ port: 3000 }).then(() => {
   console.log("HTTP server running!");
 });
