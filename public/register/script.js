@@ -1,4 +1,4 @@
-import { postData } from "/shared/fetch.js";
+import { postFormData } from "/shared/fetch.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("registerForm");
@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       if (
-        !data.rm ||
         !data.username ||
         !data.nome_completo ||
         !data.email ||
@@ -31,13 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error("A senha deve ter no mínimo 6 caracteres.");
       }
 
-      await postData(`/users`, {
-        rm: data.rm,
-        username: data.username,
-        nome_completo: data.nome_completo,
-        email: data.email,
-        password: data.password,
-      });
+      await postFormData(`/users`, formData);
 
       messageElement.textContent =
         "Cadastro realizado com sucesso! Redirecionando...";
