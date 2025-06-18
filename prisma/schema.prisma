@@ -1,0 +1,71 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model users {
+  id            String @id @default(uuid())
+  username      String @unique
+  nome_completo String
+  rm            Int    @unique
+  email         String @unique
+  password      String
+  photo         String?
+
+  creditos   creditos[]   @relation("UserCreditos")
+  mensagens  mensagens[]
+  pendencias pendencias[]
+  presencas  presencas[]
+}
+
+model creditos {
+  id_cred    Int    @id @default(autoincrement())
+  quantidade Int
+  username   String
+  user       users  @relation("UserCreditos", fields: [username], references: [username], onDelete: Cascade)
+
+  @@map("creditos")
+}
+
+model mensagens {
+  id           Int      @id @default(autoincrement())
+  user_id      String
+  mensagem     String
+  data_criacao DateTime @default(now())
+  user         users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("mensagens")
+}
+
+model noticias {
+  id       Int      @id @default(autoincrement())
+  data     DateTime
+  assunto  String
+  detalhes String
+
+  @@map("noticias")
+}
+
+model pendencias {
+  id        Int    @id @default(autoincrement())
+  descricao String
+  status    String @default("pendente")
+  user_id   String
+  user      users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("pendencias")
+}
+
+model presencas {
+  id      Int      @id @default(autoincrement())
+  user_id String
+  data    DateTime
+  user    users    @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, data])
+  @@map("presencas")
+}

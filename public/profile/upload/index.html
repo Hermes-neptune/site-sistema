@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload de Foto de Perfil</title>
+    <link rel="stylesheet" href="/shared/theme.css" />
+    <link rel="stylesheet" href="/profile/upload/style.css" />
+    <link
+      rel="shortcut icon"
+      type="imagex/png"
+      href="/shared/images/logo-black.png"
+    />
+  </head>
+  <body>
+    <div class="upload-container">
+      <h2>Upload de Foto de Perfil</h2>
+
+      <div id="statusMessage" class="status-message" hidden></div>
+
+      <div class="preview-container">
+        <img
+          src="img/user.png"
+          alt="Foto de perfil atual"
+          class="photo-preview"
+          id="photoPreview"
+        />
+        <p id="usernameDisplay">Usuário: --</p>
+        <p id="emailDisplay">Email: --</p>
+        <p id="rmDisplay">RM: --</p>
+      </div>
+
+      <div class="form-group">
+        <label for="profilePhoto">Selecione uma nova foto:</label>
+        <input type="file" id="profilePhoto" accept="image/*" required />
+        <small>Formatos aceitos: JPG, JPEG, PNG. Tamanho máximo: 5MB.</small>
+      </div>
+
+      <div class="form-group">
+        <button id="submitBtn" class="btn">Atualizar Foto de Perfil</button>
+      </div>
+
+      <a href="protected.html" class="back-link"
+        >Voltar para a página principal</a
+      >
+    </div>
+
+    <script src="/dashboard/js/thema.js"></script>
+    <script type="module" src="/profile/upload/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/shared/theme.css" />
+    <link rel="stylesheet" href="/badge/css/style.css" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png"
+    />
+    <title id="page-title">Crachá - Carregando...</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card-content">
+        <div id="message" class="message" aria-live="polite"></div>
+
+        <div class="card-fita">
+          <img
+            src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/hermesssistem//faixa.svg"
+            alt="Fita decorativa do crachá"
+          />
+        </div>
+
+        <header class="card-header">
+          <span>Crachá</span>
+          <div class="card-credential">
+            <span id="cracha-codigo">Código: Carregando...</span>
+          </div>
+        </header>
+
+        <div class="card-data">
+          <div class="card-image">
+            <div class="card-mask">
+              <img
+                src="img/user.png"
+                alt="Foto do perfil"
+                class="card-img"
+                id="user-photo"
+              />
+            </div>
+          </div>
+
+          <h2 class="card-name" id="cracha-nome">Carregando...</h2>
+          <h3 class="card-profession">Aluno</h3>
+
+          <canvas class="card-qrcode" id="cracha-qrcode"></canvas>
+
+          <a href="/dashboard/index.html" class="card-button">
+            <span>Voltar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
