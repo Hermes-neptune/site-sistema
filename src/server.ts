@@ -30,7 +30,7 @@ import fastifySensible from "@fastify/sensible";
 import { customJsonSchemaTransform } from "./utils/swagger-transform";
 import { updateUserPhoto } from "./routes/users/update-user-photo";
 const app = fastify({
-  logger: true, // Habilita o logger padrão (JSON)
+  logger: true,
 }).withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyStatic, {
@@ -74,7 +74,7 @@ app.register(multipart);
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: "Minha API", // Mude para o nome do seu projeto
+      title: "Hermes",
       description: "Documentação da API do meu projeto.",
       version: "1.0.0",
     },
