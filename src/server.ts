@@ -116,6 +116,12 @@ app.register(checkinPresenca);
 app.register(getAtualUser);
 app.register(updateUserPhoto);
 
-app.listen({ port: 3000 }).then(() => {
-  console.log("HTTP server running!");
+const port = parseInt(process.env.PORT || '3000', 10);
+
+app.listen({ port, host: '0.0.0.0' }, err => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`Server running on port ${port}`);
 });
