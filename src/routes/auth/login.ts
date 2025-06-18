@@ -12,8 +12,8 @@ export async function login(app: FastifyInstance) {
         summary: "Realiza o login de um usuário",
         tags: ["auth"],
         body: z.object({
-          username: z.string().min(3),
-          password: z.string().min(6),
+          rm: z.number().int(),
+          password: z.string().min(1),
         }),
         response: {
           200: z.object({
@@ -24,7 +24,7 @@ export async function login(app: FastifyInstance) {
               username: z.string(),
               nome_completo: z.string(),
               email: z.string().email(),
-              codigo_unico: z.number(),
+              rm: z.number().int(),
             }),
           }),
           401: z.object({
@@ -34,10 +34,10 @@ export async function login(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const { username, password } = request.body;
+      const { rm, password } = request.body;
 
       const user = await prisma.users.findFirst({
-        where: { username },
+        where: { rm },
       });
 
       if (!user) {
@@ -63,7 +63,7 @@ export async function login(app: FastifyInstance) {
           username: user.username,
           nome_completo: user.nome_completo,
           email: user.email,
-          codigo_unico: user.codigo_unico,
+          rm: user.rm,
         },
       });
     }

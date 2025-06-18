@@ -8,17 +8,18 @@ generator client {
 }
 
 model users {
-  id            String       @id @default(uuid())
-  username      String       @unique
+  id            String @id @default(uuid())
+  username      String @unique
   nome_completo String
-  rm            String       @unique
-  email         String       @unique
+  rm            Int    @unique
+  email         String @unique
   password      String
-  codigo_unico  Int          @unique
-  creditos      creditos[]   @relation("UserCreditos")
-  mensagens     mensagens[]
-  pendencias    pendencias[]
-  presencas     presencas[]
+  photo         String?
+
+  creditos   creditos[]   @relation("UserCreditos")
+  mensagens  mensagens[]
+  pendencias pendencias[]
+  presencas  presencas[]
 }
 
 model creditos {

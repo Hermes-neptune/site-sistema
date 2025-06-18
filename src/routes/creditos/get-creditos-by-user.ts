@@ -32,14 +32,12 @@ export async function pegarCreditosDoUser(app: FastifyInstance) {
           quantidade: true,
         },
         where: {
-          username
+          username,
         },
       });
 
       if (!total._sum.quantidade) {
-        return reply.status(404).send({
-          error: "Créditos não encontrados para este usuário",
-        });
+        return reply.send({ totalCreditos: 0 });
       }
 
       return reply.send({ totalCreditos: total._sum.quantidade });

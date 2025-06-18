@@ -5,9 +5,10 @@ export async function gerarcodigo() {
   let exists;
 
   do {
-    codigo = Math.floor(Math.random() * 2_000_000) + 1;
+    codigo = Math.floor(Math.random() * 900000) + 100000;
+
     exists = await prisma.users.findFirst({
-      where: { codigo_unico: codigo },
+      where: { rm: codigo },
     });
   } while (exists);
 

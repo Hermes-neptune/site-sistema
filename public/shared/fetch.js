@@ -70,7 +70,78 @@ export async function publicPostData(endpoint, body) {
   const responseBody = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseBody.message || "Ocorreu um erro na requisição.");
+    console.error(responseBody);
+    throw new Error(responseBody.error || "Ocorreu um erro na requisição.");
+  }
+
+  return responseBody;
+}
+
+export async function postFormData(endpoint, formData, isAuthenticated = true) {
+  const headers = {};
+
+  if (isAuthenticated) {
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      window.location.href = "/login/index.html";
+      throw new Error("Token de autenticação não encontrado.");
+    }
+
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    method: "POST",
+    headers,
+    body: formData,
+  });
+
+  const responseBody = await response.json().catch(() => ({
+    message: "Erro ao processar resposta JSON.",
+  }));
+
+  if (!response.ok) {
+    throw new Error(
+      responseBody.error || responseBody.message || "Erro na requisição."
+    );
+  }
+
+  return responseBody;
+}
+
+export async function patchFormData(
+  endpoint,
+  formData,
+  isAuthenticated = true
+) {
+  const headers = {};
+
+  if (isAuthenticated) {
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      window.location.href = "/login/index.html";
+      throw new Error("Token de autenticação não encontrado.");
+    }
+
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    method: "PATCH",
+    headers,
+    body: formData,
+  });
+
+  const responseBody = await response.json().catch(() => ({
+    message: "Erro ao processar resposta JSON.",
+  }));
+
+  if (!response.ok) {
+    throw new Error(
+      responseBody.error || responseBody.message || "Erro na requisição."
+    );
   }
 
   return responseBody;

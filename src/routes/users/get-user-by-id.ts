@@ -20,12 +20,13 @@ export async function pegarUserPeloId(app: FastifyInstance) {
             username: z.string(),
             nome_completo: z.string(),
             email: z.string().email(),
-            codigo_unico: z.number(),
+            rm: z.number().int(),
           }),
           404: z.object({
             error: z.string(),
           }),
         },
+        security: [{ bearerAuth: [] }],
       },
     },
     async (request, reply) => {
@@ -38,7 +39,7 @@ export async function pegarUserPeloId(app: FastifyInstance) {
           username: true,
           nome_completo: true,
           email: true,
-          codigo_unico: true,
+          rm: true,
         },
       });
 

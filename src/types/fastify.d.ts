@@ -12,4 +12,22 @@ declare module "fastify" {
   interface FastifyReply {
     jwtSign(payload: object): Promise<string>;
   }
+
+  supabaseService: SupabaseService;
+}
+
+declare module "fastify" {
+  export interface FastifyInstance {
+    supabaseService: SupabaseService;
+    authenticate: (
+      request: FastifyRequest,
+      reply: FastifyReply
+    ) => Promise<void>;
+  }
+
+  interface RouteShorthandOptions {
+    swagger?: {
+      [key: string]: unknown;
+    };
+  }
 }

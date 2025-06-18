@@ -1,5 +1,3 @@
-// ARQUIVO: get-atual-user.ts
-
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
@@ -12,14 +10,14 @@ export async function getAtualUser(app: FastifyInstance) {
       onRequest: [app.authenticate],
       schema: {
         summary: "Obtém dados do usuário autenticado",
-        tags: ["user"],
+        tags: ["users"],
         response: {
           200: z.object({
             success: z.boolean(),
             user: z.object({
               id: z.string().uuid(),
               username: z.string(),
-              rm: z.string(),
+              rm: z.number().int(),
               email: z.string().email(),
               photo: z.string().nullable(),
             }),
@@ -50,7 +48,7 @@ export async function getAtualUser(app: FastifyInstance) {
           username: user.username,
           rm: user.rm,
           email: user.email,
-          photo: "https://picsum.photos/600/400",
+          photo: user.photo,
         },
       });
     }

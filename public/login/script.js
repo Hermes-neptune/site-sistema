@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
 
     const formData = new FormData(loginForm);
-    const username = formData.get("username");
+    const rm = parseInt(formData.get("rm"));
     const password = formData.get("password");
 
     submitButton.disabled = true;
@@ -18,17 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
     messageElement.className = "message";
 
     try {
-      if (!username || !password) {
+      if (!rm || !password) {
         throw new Error("Usuário e senha são obrigatórios.");
       }
 
       const result = await publicPostData(`/auth/login`, {
-        username,
+        rm,
         password,
       });
 
       if (result.token) {
         localStorage.setItem("jwtToken", result.token);
+        localStorage.setItem("userId", result.user.id);
 
         messageElement.textContent =
           "Login realizado com sucesso! Redirecionando...";
