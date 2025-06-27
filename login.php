@@ -1,47 +1,45 @@
 <?php
-    session_start();
+session_start();
+require 'processos/db_connect.php';
 
-    if (isset($_SESSION['id'])) {
-        header('Location: protected.php');
-        exit();
-    }
-
-    if (isset($_GET['error'])) {
-        echo "<p style='color: red;'>Login inválido!</p>";
-    }
+if (isset($_SESSION['id'])) {
+    header('Location: protected.php');
+    exit();
+}
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
+    <title>Login - Neptune Miners</title>
+    <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa/Neptune.png">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<div class="form-container">
-    <h2 class="title">Login</h2>
-    <form action="processos/authenticate.php" method="POST">
-    <div class="form-group">
-        <label for="username">RM:</label>
-        <input type="text" name="login" required>
+    <div class="login-container">
+        <div class="logo">
+            <img src="img/logo-black.png" alt="logo da empresa" class="logo-img"/>
+            <p>Faça login em sua conta</p>
+        </div>
+
+        <form action="processos/authenticate.php" method="POST">
+            <div class="form-group">
+                <label for="username">RM:</label>
+                <input type="text" name="login">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn-login">Entrar</button>
+        </form>
+        
+        <div class="register-link">
+            <p>Não tem uma conta? <a href="register.php">Cadastre-se</a></p>
+        </div>
     </div>
-    
-    <div class="form-group">
-        <label for="password">Senha:</label>
-        <input type="password" name="password" required>
-    </div>
-    
-    <div class="form-group">
-        <button type="submit">Login</button>
-    </div>
-    
-    <div class="link">
-        <a href="register.php" >Criar conta</a>
-    </div>
-</form>
-</div>
 </body>
 </html>

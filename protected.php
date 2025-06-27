@@ -48,6 +48,7 @@
         <link rel="stylesheet" href="css/protected.css">
         <link rel="stylesheet" href="css/thema.css">
         <link rel="stylesheet" href="css/hamburguerBtn.css">
+        <link rel="stylesheet" href="css/mobile.css">
     </head>
 
     <body>
