@@ -1,7 +1,7 @@
 <?php
     session_start();
     require 'vendor/autoload.php';
-    require 'processos/db_connect.php';
+    require 'process/db_connect.php';
 
     if (!isset($_SESSION['id'])) {
         header('Location: login.php');
@@ -37,7 +37,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload de Foto de Perfil</title>
-    <link rel="stylesheet" href="css/thema.css">
     <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
     <link rel="stylesheet" href="css/upload_foto.css">
 </head>
@@ -56,7 +55,7 @@
             <p>Foto de perfil atual</p>
         </div>
         
-        <form action="processar_upload_foto.php" method="POST" enctype="multipart/form-data">
+        <form action="process/upload_foto_process.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="profilePhoto">Selecione uma nova foto:</label>
                 <input type="file" name="profilePhoto" id="profilePhoto" class="form-control" accept="image/*" required>

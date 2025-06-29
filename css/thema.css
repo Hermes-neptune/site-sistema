@@ -2,7 +2,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     color: #0c0c0c;
-    background-color: #f5f5f5;
+    background: linear-gradient(135deg, hsl(230, 100%, 97%) 0%, hsl(230, 50%, 95%) 100%);
     margin: 0;
     padding: 0;
     font-size: 16px;
@@ -18,7 +18,7 @@ header {
 
 /* Estilo do modo escuro */
 body.dark-mode {
-    background-color:rgb(29 33 35);
+    background: linear-gradient(135deg, hsl(230, 24%, 8%) 0%, hsl(230, 24%, 12%) 100%);
     color: #f5f5f5;
 }
 body.dark-mode .circle:not(.present) {
@@ -61,15 +61,18 @@ body.dark-mode .overlay-content{
 body.dark-mode .sidebar.active{
     background: #3d3d3d;
 }
+
 body.dark-mode .message-item:hover, 
 body.dark-mode .pending-item:hover, 
 body.dark-mode .news-item:hover,
 body.dark-mode .message-item:focus, 
 body.dark-mode .pending-item:focus, 
 body.dark-mode .news-item:focus {
-    background-color: #3d3d3d;
+    background: linear-gradient(135deg, #313131 0%, #1f2020 100%);
+    transform: translateX(4px);
+    outline: none;
+    box-shadow: var(--shadow-sm);
 }
-
 .theme {
     position: relative;
     display: flex;

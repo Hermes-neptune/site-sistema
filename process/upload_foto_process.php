@@ -1,10 +1,10 @@
 <?php
 session_start();
-require 'vendor/autoload.php';
-require 'processos/db_connect.php';
+require '../vendor/autoload.php';
+require 'db_connect.php';
 
 if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -28,20 +28,20 @@ if (!isset($_FILES['profilePhoto']) || $_FILES['profilePhoto']['error'] !== UPLO
         default:
             $error_message .= "Erro desconhecido.";
     }
-    header("Location: upload_foto.php?status=error&msg=" . urlencode($error_message));
+    header("Location: ../upload_foto.php?status=error&msg=" . urlencode($error_message));
     exit();
 }
 
 $allowed_types = ['image/jpeg', 'image/jpg', 'image/png'];
 $file_type = $_FILES['profilePhoto']['type'];
 if (!in_array($file_type, $allowed_types)) {
-    header("Location: upload_foto.php?status=error&msg=" . urlencode("Tipo de arquivo não permitido. Use apenas JPG, JPEG ou PNG."));
+    header("Location: ../upload_foto.php?status=error&msg=" . urlencode("Tipo de arquivo não permitido. Use apenas JPG, JPEG ou PNG."));
     exit();
 }
 
 $max_size = 5 * 1024 * 1024; 
 if ($_FILES['profilePhoto']['size'] > $max_size) {
-    header("Location: upload_foto.php?status=error&msg=" . urlencode("O arquivo é muito grande. O tamanho máximo permitido é 5MB."));
+    header("Location: ../upload_foto.php?status=error&msg=" . urlencode("O arquivo é muito grande. O tamanho máximo permitido é 5MB."));
     exit();
 }
 
@@ -51,7 +51,7 @@ $stmt->execute([$user_id]);
 $usuario = $stmt->fetch();
 
 if (!$usuario) {
-    header("Location: upload_foto.php?status=error&msg=" . urlencode("Usuário não encontrado."));
+    header("Location: ../upload_foto.php?status=error&msg=" . urlencode("Usuário não encontrado."));
     exit();
 }
 
@@ -114,10 +114,10 @@ if ($http_code >= 200 && $http_code < 300) {
     $stmt_update = $pdo->prepare($sql_update);
     
     if ($stmt_update->execute([$public_url, $user_id])) {
-        header("Location: upload_foto.php?status=success");
+        header("Location: ../upload_foto.php?status=success");
         exit();
     } else {
-        header("Location: upload_foto.php?status=error&msg=" . urlencode("Erro ao atualizar o banco de dados."));
+        header("Location: ../upload_foto.php?status=error&msg=" . urlencode("Erro ao atualizar o banco de dados."));
         exit();
     }
 } else {
@@ -129,7 +129,7 @@ if ($http_code >= 200 && $http_code < 300) {
         $error_message .= " Erro cURL: " . $curl_error;
     }
     
-    header("Location: upload_foto.php?status=error&msg=" . urlencode("Erro no upload para o Supabase: " . $error_message));
+    header("Location: ../upload_foto.php?status=error&msg=" . urlencode("Erro no upload para o Supabase: " . $error_message));
     exit();
 }
 ?>

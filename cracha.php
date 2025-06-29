@@ -9,7 +9,7 @@
         exit();
     }
 
-    require 'processos/db_connect.php'; 
+    require 'process/db_connect.php'; 
 
     $sql = "SELECT username, email, codigo_unico, photo FROM users WHERE id = ?";
     $stmt = $pdo->prepare($sql);

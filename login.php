@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'processos/db_connect.php';
+require 'process/db_connect.php';
 
 if (isset($_SESSION['id'])) {
     header('Location: protected.php');
@@ -23,7 +23,7 @@ if (isset($_SESSION['id'])) {
             <p>Faça login em sua conta</p>
         </div>
 
-        <form action="processos/authenticate.php" method="POST">
+        <form action="process/authenticate.php" method="POST">
             <div class="form-group">
                 <label for="username">RM:</label>
                 <input type="text" name="login">

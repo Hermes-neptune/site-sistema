@@ -1,7 +1,7 @@
 <?php
     session_start();
     require 'vendor/autoload.php';
-    require 'processos/db_connect.php';
+    require 'process/db_connect.php';
 
     if (!isset($_SESSION['id'])) {
         header('Location: login.php');

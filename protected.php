@@ -2,11 +2,11 @@
     session_start();
 
     require 'vendor/autoload.php';
-    require 'processos/db_connect.php';
-    require 'processos/noticias.php';
-    require 'processos/pendencias.php';
-    require 'processos/mensagens.php';
-    require 'processos/creditos.php';
+    require 'process/db_connect.php';
+    require 'process/noticias.php';
+    require 'process/pendencias.php';
+    require 'process/mensagens.php';
+    require 'process/creditos.php';
 
     if (!isset($_SESSION['id'])) {
         header('Location: login.php');
@@ -72,7 +72,7 @@
                                         <img src="" alt="logo da empresa" class="logo-img" />
                                     </div>
                                     <div class="sidebar-footer">
-                                        <a class="sair" href="logout.php">Sair</a>
+                                        <a class="sair" href="process/logout.php">Sair</a>
                                     </div>
                                 </div>
                                 

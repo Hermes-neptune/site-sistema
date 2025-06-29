@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    require 'processos/db_connect.php';
+    require 'process/db_connect.php';
 
     if (!isset($_POST['login'], $_POST['password'])) {
         header('Location: login.php?error=true');

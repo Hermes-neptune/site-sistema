@@ -18,7 +18,7 @@
 <body>
 <div class="form-container">
     <h2 class="title">Cadastro de Usuário</h2>
-    <form action="processos/register_process.php" method="POST">
+    <form action="process/register_process.php" method="POST">
     <div class="form-group">
         <label for="rm">RM:</label>
         <input type="text" name="rm" required>
