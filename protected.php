@@ -46,6 +46,7 @@
         <title>Presenças</title>
         <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
         <link rel="stylesheet" href="css/protected.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/thema.css">
         <link rel="stylesheet" href="css/hamburguerBtn.css">
         <link rel="stylesheet" href="css/mobile.css">
@@ -72,7 +73,11 @@
                                         <img src="" alt="logo da empresa" class="logo-img" />
                                     </div>
                                     <div class="sidebar-footer">
-                                        <a class="sair" href="process/logout.php">Sair</a>
+                                        <a class="config-button" href="config.php"><i class="fas fa-cog"></i></a>
+
+                                        <a class="sair" href="process/logout.php">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        </a>
                                     </div>
                                 </div>
                                 

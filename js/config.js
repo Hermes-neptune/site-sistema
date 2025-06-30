@@ -222,11 +222,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-        // ========== LOGOUT ==========
+    // ========== RETURN ==========
     const returnBtn = document.querySelector('.nav-item.return');
     if (returnBtn) {
         returnBtn.addEventListener('click', function() {
             window.location.href = 'protected.php';
+        });
+    }
+
+    // ========== HELP ==========
+    const helpBtn = document.querySelector('.nav-item.help');
+    if (helpBtn) {
+        helpBtn.addEventListener('click', function() {
+            window.location.href = 'https://hermes-neptune.github.io/site-produto/problemas.html';
         });
     }
 });

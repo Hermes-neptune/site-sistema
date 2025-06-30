@@ -35,7 +35,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <img src="" alt="logo da empresa" class="logo-img"/>
+                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//logo-white.png" alt="logo da empresa" class="logo-img"/>
             </div>
             <div class="user-info">
                 <div class="avatar">
@@ -76,13 +76,13 @@
                     <i class="fas fa-globe"></i>
                     Privacidade
                 </button>
-                <button class="nav-item" data-tab="help">
+                <button class="nav-item help">
                     <i class="fas fa-question-circle"></i>
                     Ajuda
                 </button>
                 <div class="separator"></div>
                 <button class="nav-item return">
-                    <i class="fas fa-question-circle"></i>
+                    <i class="fas fa-undo-alt"></i>
                     Voltar
                 </button>
                 <button class="nav-item logout">

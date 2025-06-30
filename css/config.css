@@ -85,7 +85,9 @@ body {
     border-radius: 50%;
     object-fit: cover;
 }
-
+.logo img{
+    max-width: 80px;
+}
 .camera-btn {
     position: absolute;
     bottom: -0.5rem;
