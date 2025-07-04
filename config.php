@@ -9,7 +9,7 @@
         exit();
     }
 
-    $sql = "SELECT email, username, nome_completo, codigo_unico, photo FROM users WHERE id = ?";
+    $sql = "SELECT email, username, nome_completo, rm, photo FROM users WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['id']]);
     $usuario = $stmt->fetch();

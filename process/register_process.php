@@ -24,7 +24,7 @@ function gerarCodigoUnico($pdo) {
     do {
         $codigo = rand(10000, 99999);
 
-        $sql = "SELECT id FROM users WHERE codigo_unico = ?";
+        $sql = "SELECT id FROM users WHERE rm = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$codigo]);
         $exists = $stmt->fetch();
@@ -35,11 +35,11 @@ function gerarCodigoUnico($pdo) {
 
 $codigo_unico = gerarCodigoUnico($pdo);
 
-$hash_rm_password = hash('sha256', $rm . $password);
+$password = hash('sha256', $rm . $password);
 
-$sql = "INSERT INTO users (username, email, hash_rm_password, codigo_unico) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO users (username, email, password, rm) VALUES (?, ?, ?, ?)";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$rm, $email, $hash_rm_password, $codigo_unico]);
+$stmt->execute([$rm, $email, $password, $codigo_unico]);
 
 header('Location: ../login.php');
 exit();

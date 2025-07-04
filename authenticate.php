@@ -11,11 +11,11 @@
     $login = $_POST['login'];
     $password = $_POST['password'];
 
-    $hash_rm_password = hash('sha256', $login . $password);
+    $password = hash('sha256', $login . $password);
 
-    $sql = "SELECT * FROM users WHERE (hash_rm_password = ?)";
+    $sql = "SELECT * FROM users WHERE (password = ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$hash_rm_password]);
+    $stmt->execute([$password]);
 
     $user = $stmt->fetch();
 

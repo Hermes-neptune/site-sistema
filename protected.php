@@ -13,7 +13,7 @@
         exit();
     }
 
-    $sql = "SELECT email, username, codigo_unico, photo FROM users WHERE id = ?";
+    $sql = "SELECT email, username, rm, photo FROM users WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['id']]);
     $usuario = $stmt->fetch();
@@ -106,7 +106,7 @@
                     </div>
                     <h3 id="welcome-heading">Bem-vindo, <?php echo htmlspecialchars($usuario['username']); ?>!</h3>
                     <div class="card_text">
-                        <!-- <p>Seu código: <strong><?php echo htmlspecialchars($usuario['codigo_unico']); ?></strong></p> -->
+                        <!-- <p>Seu código: <strong><?php echo htmlspecialchars($usuario['rm']); ?></strong></p> -->
                         <a href="cracha.php">Cracha</a>
                     </div>
                     <div>

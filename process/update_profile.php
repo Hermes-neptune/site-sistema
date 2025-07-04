@@ -70,20 +70,20 @@ if ($input['action'] === 'change_password') {
     }
     
     try {
-        $sql = "SELECT hash_rm_password,codigo_unico FROM users WHERE id = ?";
+        $sql = "SELECT password,rm FROM users WHERE id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$user_id]);
         $user = $stmt->fetch();
         
-        $hash_rm_password = hash('sha256', $user['codigo_unico'] . $current_password);
+        $password = hash('sha256', $user['rm'] . $current_password);
 
-        if (!$user || $hash_rm_password !== $user['hash_rm_password']) {
+        if (!$user || $password !== $user['password']) {
             echo json_encode(['success' => false, 'message' => 'Senha atual incorreta']);
             exit();
         }
         
-        $new_hash = hash('sha256', $user['codigo_unico'] . $new_password);
-        $sql = "UPDATE users SET hash_rm_password = ? WHERE id = ?";
+        $new_hash = hash('sha256', $user['rm'] . $new_password);
+        $sql = "UPDATE users SET password = ? WHERE id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$new_hash, $user_id]);
         

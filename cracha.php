@@ -11,7 +11,7 @@
 
     require 'process/db_connect.php'; 
 
-    $sql = "SELECT username, email, codigo_unico, photo FROM users WHERE id = ?";
+    $sql = "SELECT username, email, rm, photo FROM users WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['id']]);
     $users = $stmt->fetch();
@@ -29,7 +29,7 @@
         'scale' => 128, 
     ]);
 
-    $qrcode = (new QRCode($options))->render($users['codigo_unico']);
+    $qrcode = (new QRCode($options))->render($users['rm']);
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
                 <span>Cracha</span>
 
                 <div class="card-credential">
-                    <span>Codigo: <?php echo htmlspecialchars($users['codigo_unico']); ?></span>
+                    <span>Codigo: <?php echo htmlspecialchars($users['rm']); ?></span>
                 </div>
             </header>
 
