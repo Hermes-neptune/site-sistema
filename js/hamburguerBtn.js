@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.style.width = '100%';
         overlay.style.height = '100%';
         overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        overlay.style.zIndex = '998';
         overlay.style.cursor = 'pointer';
         
         overlay.addEventListener('click', function() {

@@ -82,6 +82,7 @@
                                 </div>
                                 
                                 <div class="sidebar-username">
+                                    <?php echo '<img src="' . $user_photo_url . '" alt="Foto do perfil" class="header-img sidebar-img" />'; ?>
                                     <h4><?php echo htmlspecialchars($usuario['username']); ?></h4>
                                     <p><?php echo htmlspecialchars($usuario['email']); ?></p>
                                 </div>

@@ -237,6 +237,11 @@
     margin: var(--spacing-md);
     }
 
+    .header-img.sidebar-img {
+        top: 100px;
+        right: 250px;
+    }
+
     /* ===== MEDIA QUERIES ===== */
 
     /* Tablets */
@@ -362,6 +367,12 @@
     .pagination a {
         padding: var(--spacing-sm) var(--spacing-md);
     }
+
+    .header-img.sidebar-img {
+        top: 65%;
+        right: 88%;
+    }
+
     }
 
     /* Smartphones pequenos */
