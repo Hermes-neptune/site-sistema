@@ -28,8 +28,10 @@
         $stmt_insert = $pdo->prepare($sql_insert);
         $stmt_insert->execute([$user_id, $data_atual]);
         $presenca_msg = "Presença registrada com sucesso!";
+        $status_class = "success";
     } else {
         $presenca_msg = "Presença já registrada para hoje.";
+        $status_class = "already-registered";
     }
 ?>
 
@@ -47,7 +49,7 @@
 
 <body>
     <div class="container">
-        <div class="card check-in">
+        <div class="card check-in <?php echo $status_class; ?>">
             <div class="card-mask">
                 <img src="<?php echo $user_photo_url; ?>" alt="Foto do perfil" class="card-img">
             </div>
