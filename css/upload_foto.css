@@ -1,3 +1,71 @@
+:root {
+    --primary-color: #314ccc;
+    --primary-hover: #2a3fb8;
+    --primary-shadow: rgba(49, 76, 204, 0.3);
+    --primary-shadow-light: rgba(49, 76, 204, 0.1);
+    
+    --bg-body: #314ccc;
+    --bg-container: white;
+    --bg-input: white;
+    --bg-input-hover: #f8f9fa;
+    --bg-back-link-hover: #f8f9fa;
+    
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-white: white;
+    
+    --border-default: #e1e5e9;
+    --border-focus: #314ccc;
+    --border-photo: #314ccc;
+    
+    --success-bg: #d4edda;
+    --success-text: #155724;
+    --success-border: #28a745;
+    
+    --error-bg: #f8d7da;
+    --error-text: #721c24;
+    --error-border: #dc3545;
+    
+    --shadow-container: 0 15px 35px rgba(0,0,0,0.1);
+    --shadow-photo: 0 8px 20px rgba(49, 76, 204, 0.3);
+    --shadow-button: 0 8px 20px rgba(49, 76, 204, 0.3);
+    --shadow-focus: 0 0 0 3px rgba(49, 76, 204, 0.1);
+}
+
+.dark-mode {
+    --primary-color: #4a69ff;
+    --primary-hover: #3d5bff;
+    --primary-shadow: rgba(74, 105, 255, 0.3);
+    --primary-shadow-light: rgba(74, 105, 255, 0.1);
+    
+    --bg-body: linear-gradient(135deg, hsl(230, 24%, 8%) 0%, hsl(230, 24%, 12%) 100%);
+    --bg-container: #2d2d2d;
+    --bg-input: #3a3a3a;
+    --bg-input-hover: #404040;
+    --bg-back-link-hover: #404040;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-white: white;
+    
+    --border-default: #4a4a4a;
+    --border-focus: #4a69ff;
+    --border-photo: #4a69ff;
+    
+    --success-bg: #1e4620;
+    --success-text: #4caf50;
+    --success-border: #4caf50;
+    
+    --error-bg: #4a1e1e;
+    --error-text: #f44336;
+    --error-border: #f44336;
+    
+    --shadow-container: 0 15px 35px rgba(0,0,0,0.3);
+    --shadow-photo: 0 8px 20px rgba(74, 105, 255, 0.3);
+    --shadow-button: 0 8px 20px rgba(74, 105, 255, 0.3);
+    --shadow-focus: 0 0 0 3px rgba(74, 105, 255, 0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,29 +74,32 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #314ccc;
+    background: var(--bg-body);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    transition: background 0.3s ease;
 }
 
 .upload-container {
-    background: white;
+    background: var(--bg-container);
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-container);
     width: 100%;
     max-width: 500px;
     text-align: center;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .upload-container h2 {
-    color: #333;
+    color: var(--text-primary);
     font-size: 2rem;
     margin-bottom: 30px;
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .status-message {
@@ -37,18 +108,19 @@ body {
     margin-bottom: 25px;
     font-weight: 500;
     border-left: 4px solid;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .status-message.success {
-    background: #d4edda;
-    color: #155724;
-    border-left-color: #28a745;
+    background: var(--success-bg);
+    color: var(--success-text);
+    border-left-color: var(--success-border);
 }
 
 .status-message.error {
-    background: #f8d7da;
-    color: #721c24;
-    border-left-color: #dc3545;
+    background: var(--error-bg);
+    color: var(--error-text);
+    border-left-color: var(--error-border);
 }
 
 .preview-container {
@@ -60,10 +132,10 @@ body {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #314ccc;
-    box-shadow: 0 8px 20px rgba(49, 76, 204, 0.3);
+    border: 4px solid var(--border-photo);
+    box-shadow: var(--shadow-photo);
     margin-bottom: 10px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .photo-preview:hover {
@@ -71,9 +143,10 @@ body {
 }
 
 .preview-container p {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .form-group {
@@ -84,43 +157,46 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--text-primary);
     font-weight: 500;
     font-size: 1rem;
+    transition: color 0.3s ease;
 }
 
 .form-control {
     width: 100%;
     padding: 12px;
-    border: 2px solid #e1e5e9;
+    border: 2px solid var(--border-default);
     border-radius: 8px;
     font-size: 16px;
     transition: all 0.3s ease;
-    background: white;
+    background: var(--bg-input);
+    color: var(--text-primary);
 }
 
 .form-control:focus {
     outline: none;
-    border-color: #314ccc;
-    box-shadow: 0 0 0 3px rgba(49, 76, 204, 0.1);
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-focus);
 }
 
 .form-control:hover {
-    border-color: #314ccc;
+    border-color: var(--border-focus);
 }
 
 .form-group small {
     display: block;
     margin-top: 5px;
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.8rem;
+    transition: color 0.3s ease;
 }
 
 .btn {
     width: 100%;
     padding: 14px;
-    background: #314ccc;
-    color: white;
+    background: var(--primary-color);
+    color: var(--text-white);
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -130,9 +206,9 @@ body {
 }
 
 .btn:hover {
-    background: #2a3fb8;
+    background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(49, 76, 204, 0.3);
+    box-shadow: var(--shadow-button);
 }
 
 .btn:active {
@@ -142,7 +218,7 @@ body {
 .back-link {
     display: inline-block;
     margin-top: 20px;
-    color: #314ccc;
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -151,8 +227,8 @@ body {
 }
 
 .back-link:hover {
-    background: #f8f9fa;
-    color: #2a3fb8;
+    background: var(--bg-back-link-hover);
+    color: var(--primary-hover);
     text-decoration: none;
 }
 
@@ -162,8 +238,8 @@ body {
 }
 
 .form-control[type="file"]::-webkit-file-upload-button {
-    background: #314ccc;
-    color: white;
+    background: var(--primary-color);
+    color: var(--text-white);
     border: none;
     padding: 8px 16px;
     border-radius: 6px;
@@ -174,7 +250,7 @@ body {
 }
 
 .form-control[type="file"]::-webkit-file-upload-button:hover {
-    background: #2a3fb8;
+    background: var(--primary-hover);
 }
 
 /* Responsividade */
@@ -221,9 +297,9 @@ body {
 }
 
 .form-control[type="file"]:hover {
-    background: #f8f9fa;
+    background: var(--bg-input-hover);
 }
 
 .form-control[type="file"]:focus {
-    background: #f8f9fa;
+    background: var(--bg-input-hover);
 }

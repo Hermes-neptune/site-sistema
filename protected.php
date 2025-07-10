@@ -47,7 +47,6 @@
         <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
         <link rel="stylesheet" href="css/protected.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/thema.css">
         <link rel="stylesheet" href="css/hamburguerBtn.css">
         <link rel="stylesheet" href="css/mobile.css">
     </head>
