@@ -37,7 +37,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/thema.css">
     <link rel="stylesheet" href="css/cracha.css" />
     <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
     <title>Cracha - <?php echo htmlspecialchars($users['username']); ?></title>
@@ -45,10 +44,6 @@
 <body>
     <div class="container">
         <div class="card-content">
-            <div class="card-fita">
-                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/hermesssistem//faixa.svg" alt=""> 
-            </div>
-
             <header class="card-header">
                 <span>Cracha</span>
 

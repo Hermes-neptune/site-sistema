@@ -176,26 +176,6 @@
                         </form>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Autenticação de Dois Fatores</h3>
-                        <p>Adicione uma camada extra de segurança à sua conta.</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="setting-item">
-                            <div class="setting-info">
-                                <p class="setting-title">Autenticação de Dois Fatores</p>
-                                <p class="setting-description">Proteja sua conta com 2FA</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <button class="btn-secondary">Configurar 2FA</button>
-                    </div>
-                </div>
             </div>
 
             <!-- Notifications Tab -->

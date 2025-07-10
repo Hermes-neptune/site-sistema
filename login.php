@@ -34,6 +34,10 @@ if (isset($_SESSION['id'])) {
                 <input type="password" name="password" required>
             </div>
 
+            <div class="forgot-password">
+                <a href="recover_password.php">Esqueceu sua senha?</a>
+            </div>
+
             <button type="submit" class="btn-login">Entrar</button>
         </form>
         

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("INSERT INTO password_resets (email, token, expiry) VALUES (?, ?, ?)");
             $stmt->execute([$email, $token, $expiry]);
             
-            sendEmail($email, $token, 'Recuperação de Senha', 'user');
+            sendEmail($email, $url.'/reset_password.php?token='.$token, 'Recuperação de Senha', 'user');
             
             $message = 'Instruções enviadas para seu email.';
             $messageType = 'success';
