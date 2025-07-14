@@ -3,6 +3,11 @@
 
     require 'db_connect.php';
 
+    if (file_exists(__DIR__ . '/../.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->load();
+    }
+
     if (!isset($_POST['login'], $_POST['password'])) {
         header('Location: login.php?error=true');
         exit();
@@ -11,7 +16,13 @@
     $login = $_POST['login'];
     $password = $_POST['password'];
 
-    $password = hash('sha256', $login . $password);
+    $sql = "SELECT id FROM users WHERE (rm = ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$login]);
+
+    $user = $stmt->fetch();
+
+    $password = hash( 'sha256',  $user['id'] . $_ENV['ENCRYPTION_KEY'] . hash('sha256', $login . $password));
 
     $sql = "SELECT * FROM users WHERE (password = ?)";
     $stmt = $pdo->prepare($sql);

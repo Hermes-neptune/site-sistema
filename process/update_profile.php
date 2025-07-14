@@ -2,6 +2,12 @@
 session_start();
 require 'db_connect.php';
 
+if (file_exists(__DIR__ . '/../.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->load();
+}
+
+
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['id'])) {
@@ -74,15 +80,16 @@ if ($input['action'] === 'change_password') {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$user_id]);
         $user = $stmt->fetch();
-        
-        $password = hash('sha256', $user['rm'] . $current_password);
+
+        $password = hash( 'sha256', $_SESSION['id'] . $_ENV['ENCRYPTION_KEY'] . hash('sha256', $user['rm'] . $current_password));
+
 
         if (!$user || $password !== $user['password']) {
             echo json_encode(['success' => false, 'message' => 'Senha atual incorreta']);
             exit();
         }
-        
-        $new_hash = hash('sha256', $user['rm'] . $new_password);
+
+        $new_hash = hash( 'sha256', $_SESSION['id'] . $_ENV['ENCRYPTION_KEY'] . hash('sha256', $user['rm'] . $new_password));
         $sql = "UPDATE users SET password = ? WHERE id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$new_hash, $user_id]);

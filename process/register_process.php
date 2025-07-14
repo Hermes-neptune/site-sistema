@@ -1,6 +1,12 @@
 <?php
 require 'db_connect.php';
 
+if (file_exists(__DIR__ . '/../.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->load();
+    }
+
+
 if (!isset($_POST['rm'], $_POST['username'], $_POST['email'], $_POST['password'])) {
     header('Location: register.php?error=Campos obrigatórios faltando.');
     exit();
@@ -40,12 +46,12 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
     header('Location: ../register.php?error=O nome de usuário só pode conter letras, números e sublinhados.');
     exit();
 }
+$key = bin2hex(openssl_random_pseudo_bytes(16)); 
+$password = hash( 'sha256', $key . $_ENV['ENCRYPTION_KEY'] . hash('sha256', $rm . $password));
 
-$password = hash('sha256', $rm . $password);
-
-$sql = "INSERT INTO users (username, email, password, rm) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO users (id, username, email, password, rm) VALUES (?, ?, ?, ?, ?)";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$username, $email, $password, $rm]);
+$stmt->execute([$key, $username, $email, $password, $rm]);
 
 header('Location: ../login.php');
 exit();

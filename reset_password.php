@@ -7,6 +7,12 @@ if (isset($_SESSION['id'])) {
     exit();
 }
 
+if (file_exists(__DIR__ . '/../.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->load();
+    }
+
+
 $message = '';
 $messageType = '';
 $token = $_GET['token'] ?? '';
@@ -46,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $tokenValid) {
         $stmt->execute([$token]);
         $email = $stmt->fetch()['email'];
         
-        $sql = "SELECT password,rm FROM users WHERE email = ?";
+        $sql = "SELECT id, password,rm FROM users WHERE email = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         // Atualizar senha
-        $new_hash = hash('sha256', $user['rm'] . $password);
+        $new_hash = hash('sha256', $user['id'] .$_ENV['ENCRYPTION_KEY'] . hash('sha256', $user['rm'] . $password));
         $sql = "UPDATE users SET password = ? WHERE email = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$new_hash, $email]);
