@@ -1,7 +1,6 @@
 <?php
 session_start();
 require 'db_connect.php';
-require __DIR__ . '/config.php'; 
 
 if (file_exists(__DIR__ . '/../.env')) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');

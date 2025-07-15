@@ -1,7 +1,7 @@
 async function sendRequest(friendId) {
     const formData = new FormData();
     formData.append('action', 'enviar_solicitacao');
-    formData.append('friend_id', friendId);
+    formData.append('friend_id', String(friendId)); 
 
     try {
         const response = await fetch('process/friends_process.php', {
@@ -13,7 +13,10 @@ async function sendRequest(friendId) {
 
         if (response.ok) {
             alert(result.message);
-            document.getElementById(`user-${friendId}`).remove();
+            const userElement = document.querySelector(`[id="user-${friendId}"]`);
+            if (userElement) {
+                userElement.remove();
+            }
         } else {
             throw new Error(result.message);
         }
@@ -26,7 +29,7 @@ async function sendRequest(friendId) {
 async function handleRequest(requestId, action) {
     const formData = new FormData();
     formData.append('action', action === 'aceitar' ? 'aceitar_solicitacao' : 'rejeitar_solicitacao');
-    formData.append('request_id', requestId);
+    formData.append('request_id', String(requestId)); 
 
     try {
         const response = await fetch('process/friends_process.php', {
@@ -38,7 +41,10 @@ async function handleRequest(requestId, action) {
 
         if (response.ok) {
             alert(result.message);
-            document.getElementById(`request-${requestId}`).remove();
+            const requestElement = document.querySelector(`[id="request-${requestId}"]`);
+            if (requestElement) {
+                requestElement.remove();
+            }
             location.reload();
         } else {
             throw new Error(result.message);
@@ -53,17 +59,21 @@ let activeChatFriendId = null;
 let messagePollingInterval = null;
 
 function startChat(friendId, friendName, friendPhoto) {
-    activeChatFriendId = friendId;
+    activeChatFriendId = String(friendId); 
 
     document.getElementById('chat-welcome').style.display = 'none';
     document.getElementById('chat-conversation').style.display = 'flex';
 
     document.getElementById('chat-friend-name').innerText = friendName;
     document.getElementById('chat-friend-photo').src = friendPhoto;
-    document.getElementById('chat-friend-id').value = friendId;
+    document.getElementById('chat-friend-id').value = String(friendId);
 
     document.querySelectorAll('.friend-item').forEach(item => item.classList.remove('active'));
-    document.querySelector(`.friend-item[onclick*="startChat(${friendId},"]`).classList.add('active');
+    
+    const friendItem = document.querySelector(`.friend-item[data-friend-id="${friendId}"]`);
+    if (friendItem) {
+        friendItem.classList.add('active');
+    }
 
     fetchMessages(friendId);
 
@@ -73,7 +83,7 @@ function startChat(friendId, friendName, friendPhoto) {
 
 async function fetchMessages(friendId) {
     try {
-        const response = await fetch(`process/chat_process.php?action=fetch_messages&friend_id=${friendId}`);
+        const response = await fetch(`process/chat_process.php?action=fetch_messages&friend_id=${encodeURIComponent(friendId)}`);
         const result = await response.json();
 
         if (result.status === 'success') {
@@ -85,7 +95,7 @@ async function fetchMessages(friendId) {
                 result.messages.forEach(msg => {
                     const messageDiv = document.createElement('div');
                     messageDiv.classList.add('message');
-                    messageDiv.classList.add(msg.remetente_id == LOGGED_IN_USER_ID ? 'sent' : 'received');
+                    messageDiv.classList.add(String(msg.remetente_id) === String(LOGGED_IN_USER_ID) ? 'sent' : 'received');
                     messageDiv.textContent = msg.mensagem;
                     messageArea.appendChild(messageDiv);
                 });
@@ -117,7 +127,7 @@ if (messageForm) {
 
         const formData = new FormData();
         formData.append('action', 'send_message');
-        formData.append('friend_id', friendId);
+        formData.append('friend_id', String(friendId)); 
         formData.append('message', message);
 
         try {
@@ -141,6 +151,13 @@ if (messageForm) {
 }
 
 function openChat(userId) {
-    window.location.href = `chat.php?friend_id=${userId}`;
+    window.location.href = `chat.php?friend_id=${encodeURIComponent(userId)}`;
 }
 
+function isValidHexId(id) {
+    return /^[0-9a-fA-F]{32}$/.test(id);
+}
+
+function escapeSelector(selector) {
+    return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&');
+}

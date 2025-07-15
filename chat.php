@@ -41,7 +41,9 @@ $amigos = $stmt_amigos->fetchAll();
                 <li>Nenhum amigo para conversar.</li>
             <?php else: ?>
                 <?php foreach ($amigos as $amigo): ?>
-                    <li class="friend-item" onclick="startChat(<?= $amigo['id'] ?>, '<?= htmlspecialchars($amigo['username']) ?>', '<?= htmlspecialchars($amigo['photo']) ?>')">
+                    <li class="friend-item" 
+                        data-friend-id="<?= htmlspecialchars($amigo['id']) ?>" 
+                        onclick="startChat('<?= htmlspecialchars($amigo['id']) ?>', '<?= htmlspecialchars($amigo['username']) ?>', '<?= htmlspecialchars($amigo['photo']) ?>')">
                         <img src="<?= htmlspecialchars($amigo['photo']) ?>" alt="Foto">
                         <span><?= htmlspecialchars($amigo['username']) ?></span>
                     </li>
@@ -75,7 +77,7 @@ $amigos = $stmt_amigos->fetchAll();
 </div>
 
 <script>
-    const LOGGED_IN_USER_ID = <?= $current_user_id; ?>;
+    const LOGGED_IN_USER_ID = '<?= htmlspecialchars($current_user_id); ?>';
 </script>
 <script src="js/friends.js"></script>
 <script src="js/thema.js"></script>
