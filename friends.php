@@ -63,8 +63,8 @@ $outros_usuarios = $stmt_outros->fetchAll();
                         <img src="<?= htmlspecialchars($req['photo']) ?>" alt="Foto de <?= htmlspecialchars($req['username']) ?>">
                         <span><?= htmlspecialchars($req['username']) ?></span>
                         <div class="actions">
-                            <button class="btn-accept" onclick="handleRequest(<?= $req['id'] ?>, 'aceitar')">Aceitar</button>
-                            <button class="btn-reject" onclick="handleRequest(<?= $req['id'] ?>, 'rejeitar')">Rejeitar</button>
+                            <button class="btn-accept" onclick="handleRequest('<?= $req['id'] ?>', 'aceitar')">Aceitar</button>
+                            <button class="btn-reject" onclick="handleRequest('<?= $req['id'] ?>', 'rejeitar')">Rejeitar</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -83,7 +83,7 @@ $outros_usuarios = $stmt_outros->fetchAll();
                         <img src="<?= htmlspecialchars($amigo['photo']) ?>" alt="Foto de <?= htmlspecialchars($amigo['username']) ?>">
                         <span><?= htmlspecialchars($amigo['username']) ?></span>
                         <div class="actions">
-                            <button class="btn-message" onclick="openChat(<?= $amigo['id'] ?>)">Mensagem</button>
+                            <button class="btn-message" onclick="openChat('<?= $amigo['id'] ?>')">Mensagem</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -102,7 +102,7 @@ $outros_usuarios = $stmt_outros->fetchAll();
                         <img src="<?= htmlspecialchars($user['photo']) ?>" alt="Foto de <?= htmlspecialchars($user['username']) ?>">
                         <span><?= htmlspecialchars($user['username']) ?></span>
                         <div class="actions">
-                            <button class="btn-add" onclick="sendRequest(<?= $user['id'] ?>)">Adicionar</button>
+                            <button class="btn-add" onclick="sendRequest('<?= $user['id'] ?>')">Adicionar</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
