@@ -1,41 +1,48 @@
 <?php
-    session_start();
+session_start();
+require 'db_connect.php';
 
-    require 'db_connect.php';
+if (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->load();
+}
 
-    if (file_exists(__DIR__ . '/../.env')) {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-        $dotenv->load();
-    }
+if (!isset($_POST['login'], $_POST['password'])) {
+    header('Location: login.php?error=true');
+    exit();
+}
 
-    if (!isset($_POST['login'], $_POST['password'])) {
-        header('Location: login.php?error=true');
-        exit();
-    }
+$login = $_POST['login'];
+$password = $_POST['password'];
 
-    $login = $_POST['login'];
-    $password = $_POST['password'];
+$redirect = isset($_POST['redirect']) ? $_POST['redirect'] : 'protected.php';
 
-    $sql = "SELECT id FROM users WHERE (rm = ?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$login]);
+$allowed_redirects = ['protected.php', 'config.php'];
+if (!in_array($redirect, $allowed_redirects)) {
+    $redirect = 'protected.php';
+}
 
-    $user = $stmt->fetch();
+$sql = "SELECT id FROM users WHERE (rm = ?)";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$login]);
 
-    $password = hash( 'sha256',  $user['id'] . $_ENV['ENCRYPTION_KEY'] . hash('sha256', $login . $password));
+$user = $stmt->fetch();
 
-    $sql = "SELECT * FROM users WHERE (password = ?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$password]);
+$password = hash('sha256', $user['id'] . $_ENV['ENCRYPTION_KEY'] . hash('sha256', $login . $password));
 
-    $user = $stmt->fetch();
+$sql = "SELECT * FROM users WHERE (password = ?)";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$password]);
 
-    if ($user) {
-        $_SESSION['id'] = $user['id'];
-        header('Location: ../protected.php');
-        exit();
-    } else {
-        header('Location: ../login.php?error=true');
-        exit();
-    }
+$user = $stmt->fetch();
+
+if ($user) {
+    $_SESSION['id'] = $user['id'];
+    header('Location: ../' . $redirect);
+    exit();
+} else {
+    $redirect_param = ($redirect !== 'protected.php') ? '&redirect=' . urlencode($redirect) : '';
+    header('Location: ../login.php?error=true' . $redirect_param);
+    exit();
+}
 ?>
