@@ -473,4 +473,3 @@ composer.lock
 *.scss.map
 
 .env
-api_mobile/
