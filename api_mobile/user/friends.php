@@ -1,5 +1,5 @@
 <?php
-    require 'config_api.php';
+    require '../config_api.php';
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

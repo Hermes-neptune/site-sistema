@@ -1,9 +1,9 @@
 <?php
-    require 'config_api.php';
+    require '../config_api.php';
 
-if (file_exists(__DIR__ . '/../.env')) {
-    require_once __DIR__ . '/../vendor/autoload.php';
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+if (file_exists(__DIR__ . '/../../.env')) {
+    require_once __DIR__ . '/../../vendor/autoload.php';
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
     $dotenv->load();
 }
 
@@ -35,6 +35,10 @@ try {
     
     if (!$user) {
         throw new Exception('Usuário não encontrado');
+    }
+    
+    if (!isset($user['tipo']) || $user['tipo'] !== 'adm') {
+        throw new Exception('Acesso negado. Apenas administradores podem fazer login.');
     }
     
     $stmt = $pdo->prepare("SELECT quantidade FROM creditos WHERE username = :id");

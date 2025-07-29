@@ -12,4 +12,4 @@
         exit(0);
     }
 
-    require '../process/db_connect.php';
+    require __DIR__ . '/../process/db_connect.php';
