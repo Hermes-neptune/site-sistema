@@ -2,8 +2,8 @@
 session_start();
 require '../../process/db_connect.php';
 
-if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+if (file_exists(__DIR__ . '/../../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
     $dotenv->load();
 }
 
@@ -19,11 +19,7 @@ function decrypt_message(string $ciphertext): string {
 try {
     $input = json_decode(file_get_contents('php://input'), true);
     
-    if (!isset($input['user_id'])) {
-        throw new Exception('user_id é obrigatório');
-    }
-    
-    $current_user_id = $input['user_id'];
+    $current_user_id = '23a4f7e8c94633d4f33dbd787edb76ed';
 
     $stmt = $pdo->prepare("
         SELECT 

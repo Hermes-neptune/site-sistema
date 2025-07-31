@@ -429,7 +429,6 @@ h2:hover::after {
     font-weight: 600;
 }
 
-
 .chat-container {
     display: flex;
     height: 100vh;
@@ -526,6 +525,55 @@ h2:hover::after {
     border-left: 4px solid var(--accent-color);
 }
 
+.friend-item.add-friends-option {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+    color: white;
+    border-radius: 10px;
+    width: calc(100% - 20px);
+    border-bottom: none;
+    padding-right: 0px;
+
+}
+
+.friend-item.add-friends-option:hover {
+    background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
+    transform: translateY(-2px) translateX(0);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.friend-item.add-friends-option::before {
+    display: none;
+}
+
+.add-friends-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    transition: all var(--transition-smooth);
+}
+
+.friend-item.add-friends-option:hover .add-friends-icon {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.add-friends-icon svg {
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.friend-item.add-friends-option span {
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
 .friend-item img {
     width: 35px;
     height: 35px;
@@ -551,6 +599,15 @@ h2:hover::after {
     color: var(--accent-color);
 }
 
+/* Mensagem quando não há amigos */
+.no-friends-message {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+    border-bottom: none;
+}
+
 .chat-window {
     flex: 1;
     display: flex;
@@ -573,6 +630,7 @@ h2:hover::after {
     text-align: center;
     background: var(--bg-primary);
     color: var(--text-muted);
+    height: 100%;
 }
 
 .welcome-message h2 {
@@ -752,7 +810,20 @@ h2:hover::after {
         padding: 10px;
     }
     
+    .friend-item.add-friends-option {
+        min-width: 140px;
+        margin: 5px;
+        border-radius: 8px;
+    }
+    
     .friend-item img {
+        margin-right: 0;
+        margin-bottom: 8px;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .add-friends-icon {
         margin-right: 0;
         margin-bottom: 8px;
         width: 30px;
@@ -801,6 +872,14 @@ h2:hover::after {
     
     .message-input-area button {
         padding: 10px 20px;
+    }
+    
+    .friend-item.add-friends-option {
+        min-width: 120px;
+    }
+    
+    .friend-item.add-friends-option span {
+        font-size: 0.8rem;
     }
 }
 

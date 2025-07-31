@@ -58,6 +58,7 @@ async function handleRequest(requestId, action) {
 let activeChatFriendId = null;
 let messagePollingInterval = null;
 
+
 function startChat(friendId, friendName, friendPhoto) {
     activeChatFriendId = String(friendId); 
 
@@ -74,6 +75,10 @@ function startChat(friendId, friendName, friendPhoto) {
     if (friendItem) {
         friendItem.classList.add('active');
     }
+
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set('friend_id', friendId);
+    window.history.pushState({}, '', newUrl);
 
     fetchMessages(friendId);
 

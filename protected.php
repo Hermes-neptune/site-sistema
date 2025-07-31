@@ -8,6 +8,11 @@
     require 'process/mensagens.php';
     require 'process/creditos.php';
 
+    if (file_exists(__DIR__ . '/.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+    }
+
     if (!isset($_SESSION['id'])) {
         header('Location: login.php');
         exit();
@@ -168,22 +173,45 @@
                     </div>
                 </section>
 
-                <section class="messages-section" aria-labelledby="messages-heading">
+                <section class="messages-section" aria-labelledby="conversations-heading">
                     <div class="card mensagens">
-                        <h3 id="messages-heading">Mensagens:</h3>
+                        <div class="conversation-header-section">
+                            <h3 id="conversations-heading">Conversas:</h3>
+                            <a href="chat.php" class="view-all-conversations">Ver todas</a>
+                        </div>
                         <div class="card-interno mensagen-interna">
-                            <ul class="message-list" aria-label="Lista de mensagens">
-                                <?php if (count($mensagens) > 0): ?>
-                                    <?php foreach ($mensagens as $mensagem): ?>
-                                        <li class="message-item" tabindex="0" data-overlay-text="<?php echo htmlspecialchars($mensagem['mensagem']); ?>">
-                                            <span class="message-date"><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($mensagem['data_criacao']))); ?></span>
-                                            <span class="message-content"><?php echo htmlspecialchars($mensagem['mensagem']); ?></span>
-                                        </li>
+                            <div class="conversations-list" aria-label="Lista de conversas">
+                                <?php if (count($formatted_conversations) > 0): ?>
+                                    <?php foreach ($formatted_conversations as $conversation): ?>
+                                        <a href="chat.php?user_id=<?php echo $conversation['contact_id']; ?>" class="conversation-item" tabindex="0">
+                                            <img src="<?php echo $conversation['photo']; ?>" alt="Foto de <?php echo $conversation['username']; ?>" class="conversation-avatar" />
+                                            
+                                            <div class="conversation-content">
+                                                <div class="conversation-header">
+                                                    <span class="conversation-username"><?php echo $conversation['username']; ?></span>
+                                                    <div class="conversation-meta">
+                                                        <span class="conversation-time"><?php echo $conversation['formatted_time']; ?></span>
+                                                        
+                                                        <?php if ($conversation['unread_count'] > 0): ?>
+                                                            <span class="unread-badge"><?php echo $conversation['unread_count']; ?></span>
+                                                        <?php elseif ($conversation['is_sent_by_me'] && $conversation['is_read']): ?>
+                                                            <span class="read-indicator">✓✓</span>
+                                                        <?php elseif ($conversation['is_sent_by_me']): ?>
+                                                            <span class="read-indicator">✓</span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="conversation-preview">
+                                                    <?php echo htmlspecialchars($conversation['last_message']); ?>
+                                                </div>
+                                            </div>
+                                        </a>
                                     <?php endforeach; ?>
                                 <?php else: ?>
-                                    <li class="no-messages">Nenhuma mensagem disponível.</li>
+                                    <div class="no-conversations">Nenhuma conversa disponível.</div>
                                 <?php endif; ?>
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </section>
