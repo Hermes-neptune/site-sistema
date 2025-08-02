@@ -1,7 +1,7 @@
 <?php
     require 'db_connect.php'; 
     
-    $limite = 8; 
+    $limite = 3; 
 
     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
     $offset = ($pagina - 1) * $limite;

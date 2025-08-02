@@ -178,18 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ========== SWITCHES/TOGGLES DE CONFIGURAÇÃO ==========
-    const switches = document.querySelectorAll('.switch input[type="checkbox"]');
-    switches.forEach(switchInput => {
-        switchInput.addEventListener('change', function() {
-            const settingItem = this.closest('.setting-item');
-            const settingTitle = settingItem?.querySelector('.setting-title')?.textContent || 'Configuração';
-            
-            console.log(`${settingTitle} ${this.checked ? 'ativada' : 'desativada'}`);
-        
-            showNotification(`${settingTitle} ${this.checked ? 'ativada' : 'desativada'}`, 'info');
-        });
-    });
+    
 
     // ========== BOTÕES DE PERIGO ==========
     const dangerButtons = document.querySelectorAll('.btn-danger');

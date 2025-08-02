@@ -1,6 +1,5 @@
 <?php
     require 'db_connect.php';
-    $limite = 8; 
 
     function decrypt_message(string $ciphertext): string {
         try {
@@ -44,7 +43,7 @@
         )
         GROUP BY contact_id, u.username, u.photo, mp.mensagem, mp.data_envio, mp.remetente_id, mp.lida
         ORDER BY mp.data_envio DESC
-        LIMIT 5
+        LIMIT 4
     ");
     
     $stmt->execute([

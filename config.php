@@ -187,43 +187,46 @@
                     </div>
                     <div class="card-content">
                         <div class="settings-list">
-                            <div class="setting-item">
+                            <div class="setting-item" data-preference="email_notifications">
                                 <div class="setting-info">
                                     <p class="setting-title">Notificações por Email</p>
                                     <p class="setting-description">Receba atualizações importantes por email</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="email_notifications" checked>
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            <div class="setting-item">
+                            
+                            <div class="setting-item" data-preference="push_notifications">
                                 <div class="setting-info">
                                     <p class="setting-title">Notificações Push</p>
                                     <p class="setting-description">Receba notificações no navegador</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="push_notifications">
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            <div class="setting-item">
+                            
+                            <div class="setting-item" data-preference="message_notifications">
                                 <div class="setting-info">
                                     <p class="setting-title">Mensagens</p>
                                     <p class="setting-description">Notificações de novas mensagens</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="message_notifications" checked>
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            <div class="setting-item">
+                            
+                            <div class="setting-item" data-preference="credit_alerts">
                                 <div class="setting-info">
-                                    <p class="setting-title">Atualizações de Sistema</p>
-                                    <p class="setting-description">Notificações sobre atualizações e manutenção</p>
+                                    <p class="setting-title">Alertas de Crédito</p>
+                                    <p class="setting-description">Notificações sobre mudanças no seu saldo</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="credit_alerts" checked>
                                     <span class="slider"></span>
                                 </label>
                             </div>
@@ -241,42 +244,71 @@
                     </div>
                     <div class="card-content">
                         <div class="settings-list">
-                            <div class="setting-item">
+                            <div class="setting-item" data-privacy="public_profile">
                                 <div class="setting-info">
                                     <p class="setting-title">Perfil Público</p>
                                     <p class="setting-description">Permitir que outros vejam seu perfil</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="public_profile" checked>
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            <div class="setting-item">
+                            
+                            <div class="setting-item" data-privacy="show_online_status">
                                 <div class="setting-info">
                                     <p class="setting-title">Mostrar Status Online</p>
                                     <p class="setting-description">Exibir quando você está online</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="show_online_status">
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            <div class="setting-item">
+                            
+                            <div class="setting-item" data-privacy="allow_direct_messages">
                                 <div class="setting-info">
                                     <p class="setting-title">Permitir Mensagens Diretas</p>
                                     <p class="setting-description">Receber mensagens de outros usuários</p>
                                 </div>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="allow_direct_messages" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item" data-privacy="share_activity">
+                                <div class="setting-info">
+                                    <p class="setting-title">Compartilhar Atividade</p>
+                                    <p class="setting-description">Permitir que outros vejam sua atividade recente</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="share_activity">
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
+
                         <div class="separator"></div>
+
+                        <!-- Zona de Perigo -->
                         <div class="danger-zone">
-                            <h4>Zona de Perigo</h4>
-                            <div class="danger-buttons">
-                                <button class="btn-danger">Excluir Conta</button>
+                            <h4 style="color: #dc3545; margin-bottom: 15px;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Zona de Perigo
+                            </h4>
+                            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                                Essas ações são irreversíveis. Tenha certeza antes de prosseguir.
+                            </p>
+                            <div class="danger-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button type="button" class="btn-danger" id="clear-all-data">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Limpar Todos os Dados
+                                </button>
+                                <button type="button" class="btn-danger" id="delete-account">
+                                    <i class="fas fa-user-times"></i>
+                                    Excluir Conta
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -287,5 +319,19 @@
 
     <script src="js/config.js"></script>
     <script src="js/thema.js"></script>
+    
+<script>
+    const USER_ID = '<?php echo $_SESSION['id']; ?>';
+    const USER_DATA = {
+        id: '<?php echo $_SESSION['id']; ?>',
+        username: '<?php echo htmlspecialchars($usuario['username']); ?>',
+        email: '<?php echo htmlspecialchars($usuario['email']); ?>',
+        nome_completo: '<?php echo htmlspecialchars($usuario['nome_completo']); ?>'
+    };
+    
+    console.log('Dados do usuário carregados:', USER_DATA);
+</script>
+
+    <script src="js/config_preferences.js"></script>
 </body>
 </html>
