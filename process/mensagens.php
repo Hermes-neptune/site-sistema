@@ -26,7 +26,7 @@
             mp.data_envio as last_message_time,
             mp.remetente_id = ? as is_sent_by_me,
             mp.lida,
-            COUNT(CASE WHEN mp.destinatario_id = ? AND mp.lida = 0 THEN 1 END) as unread_count
+            COUNT(CASE WHEN mp.destinatario_id = ? AND mp.lida = 0  THEN 1 END) as unread_count
         FROM mensagens_privadas mp
         INNER JOIN users u ON u.id = (
             CASE 

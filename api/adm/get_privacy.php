@@ -13,13 +13,13 @@ try {
     }
 
     $input = json_decode(file_get_contents('php://input'), true);
-
+    
     if (!$input || !isset($input['user_id'])) {
         throw new Exception('ID do usuário é obrigatório');
     }
 
     $user_id = trim($input['user_id']);
-
+    
     if (empty($user_id)) {
         throw new Exception('ID do usuário não pode estar vazio');
     }
@@ -27,44 +27,45 @@ try {
     $stmt = $pdo->prepare("SELECT id FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
-
+    
     if (!$stmt->fetch()) {
         throw new Exception('Usuário não encontrado');
     }
 
     $stmt = $pdo->prepare("
-        SELECT 
+        SELECT
             public_profile,
             show_online_status,
             allow_direct_messages,
             share_activity
-        FROM user_privacy 
+        FROM user_privacy
         WHERE user_id = :user_id
     ");
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
-
+    
     $privacy = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$privacy) {
         $stmt = $pdo->prepare("
-            INSERT INTO user_privacy (user_id) 
+            INSERT INTO user_privacy (user_id)
             VALUES (:user_id)
         ");
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
 
         $stmt = $pdo->prepare("
-            SELECT 
+            SELECT
                 public_profile,
                 show_online_status,
                 allow_direct_messages,
                 share_activity
-            FROM user_privacy 
+            FROM user_privacy
             WHERE user_id = :user_id
         ");
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
+        
         $privacy = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 

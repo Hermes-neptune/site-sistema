@@ -1,5 +1,4 @@
 <?php
-require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
 if (file_exists(__DIR__ . '/../.env')) {

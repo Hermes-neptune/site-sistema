@@ -51,6 +51,16 @@ $outros_usuarios = $stmt_outros->fetchAll();
 <body>
 
 <div class="container">
+    <div class="back-button-container">
+        <button class="btn-back" onclick="goBack()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 19-7-7 7-7"/>
+                <path d="M19 12H5"/>
+            </svg>
+            Voltar
+        </button>
+    </div>
+
     <h1>Minhas Amizades</h1>
 
     <div class="section">
@@ -111,6 +121,12 @@ $outros_usuarios = $stmt_outros->fetchAll();
         </div>
     </div>
 </div>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 
 <script src="js/friends.js"></script>
 <script src="js/thema.js"></script>

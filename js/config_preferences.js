@@ -37,7 +37,7 @@ class PreferencesManager {
 
     async loadPreferences() {
         try {
-            const response = await fetch('api_mobile/adm/get_preferences.php', {
+            const response = await fetch('api/adm/get_preferences.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ class PreferencesManager {
 
     async loadPrivacy() {
         try {
-            const response = await fetch('api_mobile/adm/get_privacy.php', {
+            const response = await fetch('api/adm/get_privacy.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ class PreferencesManager {
 
     async updatePreferences(newPreferences) {
         try {
-            const response = await fetch('api_mobile/adm/update_preferences.php', {
+            const response = await fetch('api/adm/update_preferences.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ class PreferencesManager {
 
     async updatePrivacy(newPrivacy) {
         try {
-            const response = await fetch('api_mobile/adm/update_privacy.php', {
+            const response = await fetch('api/adm/update_privacy.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
