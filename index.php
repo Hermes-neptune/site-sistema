@@ -8,8 +8,8 @@
     require 'process/mensagens.php';
     require 'process/creditos.php';
 
-    if (file_exists(__DIR__ . '/.env')) {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    if (file_exists(__DIR__ . '/../../../.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
         $dotenv->load();
     }
 
@@ -112,7 +112,7 @@
                     <h3 id="welcome-heading">Bem-vindo, <?php echo htmlspecialchars($usuario['username']); ?>!</h3>
                     <div class="card_text">
                         <!-- <p>Seu código: <strong><?php echo htmlspecialchars($usuario['rm']); ?></strong></p> -->
-                        <a href="cracha.php">Cracha</a>
+                        <a href="cracha.php">Crachá</a>
                     </div>
                     <div>
                         <label class="theme">

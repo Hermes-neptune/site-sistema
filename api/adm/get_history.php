@@ -1,11 +1,11 @@
 <?php  
 require '../config_api.php';  
 
-if (file_exists(__DIR__ . '/../../.env')) {     
-    require_once __DIR__ . '/../../vendor/autoload.php';     
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');     
-    $dotenv->load(); 
-}  
+if (file_exists(__DIR__ . '/../../../../../.env')) {
+    require_once __DIR__ . '/../../vendor/autoload.php';
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../../');
+    $dotenv->load();
+}
 
 try {     
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {         

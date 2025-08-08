@@ -3,12 +3,12 @@ session_start();
 require 'process/db_connect.php';
 
 if (isset($_SESSION['id'])) {
-    header('Location: protected.php');
+    header('Location: index.php');
     exit();
 }
 
-if (file_exists(__DIR__ . '/../.env')) {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+if (file_exists(__DIR__ . '/../../..')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../..');
         $dotenv->load();
     }
 

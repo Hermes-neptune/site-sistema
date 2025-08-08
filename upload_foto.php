@@ -67,7 +67,7 @@
             </div>
         </form>
         
-        <a href="protected.php" class="back-link">Voltar para a página principal</a>
+        <a href="index.php" class="back-link">Voltar para a página principal</a>
     </div>
     
     <script src="js/thema.js"></script>

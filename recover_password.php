@@ -4,7 +4,7 @@ require 'process/db_connect.php';
 require 'process/send_email.php';
 
 if (isset($_SESSION['id'])) {
-    header('Location: protected.php');
+    header('Location: index.php');
     exit();
 }
 

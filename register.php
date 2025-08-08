@@ -23,17 +23,17 @@
         <form action="process/register_process.php" method="POST">
             <div class="form-group">
                 <label for="rm">RM:</label>
-                <input type="text" name="rm" id="rm" required>
+                <input type="text" name="rm" id="rm" value="<?php echo isset($_GET['rm']) ? htmlspecialchars($_GET['rm']) : ''; ?>" required>
             </div>
 
             <div class="form-group">
-                <label for="rm">Username:</label>
-                <input type="text" name="username" id="username" >
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" value="<?php echo isset($_GET['username']) ? htmlspecialchars($_GET['username']) : ''; ?>">
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" id="email" value="<?php echo isset($_GET['email']) ? htmlspecialchars($_GET['email']) : ''; ?>" required>
             </div>
             
             <div class="form-group">

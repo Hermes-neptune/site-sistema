@@ -47,7 +47,7 @@ if ($user_id_from_url) {
     <aside class="sidebar">         
         <div class="sidebar-header">             
             <h3>Conversas</h3>             
-            <button class="btn-back" onclick="window.location.href='protected.php'">Voltar</button>         
+            <button class="btn-back" onclick="window.location.href='index.php'">Voltar</button>         
         </div>         
         <ul class="friend-list">             
             <li class="friend-item add-friends-option" onclick="window.location.href='friends.php'">

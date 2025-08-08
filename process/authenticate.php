@@ -2,8 +2,8 @@
 session_start();
 require 'db_connect.php';
 
-if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+if (file_exists(__DIR__ . '/../../../../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
     $dotenv->load();
 }
 
@@ -15,11 +15,11 @@ if (!isset($_POST['login'], $_POST['password'])) {
 $login = $_POST['login'];
 $password = $_POST['password'];
 
-$redirect = isset($_POST['redirect']) ? $_POST['redirect'] : 'protected.php';
+$redirect = isset($_POST['redirect']) ? $_POST['redirect'] : 'index.php';
 
-$allowed_redirects = ['protected.php', 'config.php'];
+$allowed_redirects = ['index.php', 'config.php'];
 if (!in_array($redirect, $allowed_redirects)) {
-    $redirect = 'protected.php';
+    $redirect = 'index.php';
 }
 
 $sql = "SELECT id FROM users WHERE (rm = ?)";
@@ -41,7 +41,7 @@ if ($user) {
     header('Location: ../' . $redirect);
     exit();
 } else {
-    $redirect_param = ($redirect !== 'protected.php') ? '&redirect=' . urlencode($redirect) : '';
+    $redirect_param = ($redirect !== 'index.php') ? '&redirect=' . urlencode($redirect) : '';
     header('Location: ../login.php?error=true' . $redirect_param);
     exit();
 }

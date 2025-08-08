@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const returnBtn = document.querySelector('.nav-item.return');
     if (returnBtn) {
         returnBtn.addEventListener('click', function() {
-            window.location.href = 'protected.php';
+            window.location.href = 'index.php';
         });
     }
 

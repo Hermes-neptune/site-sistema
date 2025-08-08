@@ -3,11 +3,11 @@ session_start();
 require 'process/db_connect.php';
 
 if (isset($_SESSION['id'])) {
-    $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'protected.php';
+    $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
     
-    $allowed_redirects = ['protected.php', 'config.php'];
+    $allowed_redirects = ['index.php', 'config.php'];
     if (!in_array($redirect, $allowed_redirects)) {
-        $redirect = 'protected.php';
+        $redirect = 'index.php';
     }
     
     header('Location: ' . $redirect);

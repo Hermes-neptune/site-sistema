@@ -66,7 +66,7 @@
                     <img id="qrcode" src="<?php echo $qrcode; ?>" alt="QR Code do RM">
                 </div>
 
-                <a href="protected.php" class="card-button">
+                <a href="index.php" class="card-button">
                     <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/hermesssistem//see.svg" alt="Ver histórico">
                     <span>Ver histórico</span>
                 </a>
