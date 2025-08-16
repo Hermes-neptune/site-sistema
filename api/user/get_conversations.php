@@ -19,7 +19,7 @@ function decrypt_message(string $ciphertext): string {
 try {
     $input = json_decode(file_get_contents('php://input'), true);
     
-    $current_user_id = '23a4f7e8c94633d4f33dbd787edb76ed';
+    $current_user_id = $input['user_id'];
 
     $stmt = $pdo->prepare("
         SELECT 

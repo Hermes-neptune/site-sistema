@@ -13,7 +13,7 @@ function getEmailTemplate($nomeDestinatario, $mensagem, $assunto, $detalhesAdici
         'cargo' => 'Atendimento',
         'email_contato' => $_ENV['MAIL_USERNAME'] ?? 'contato@hermes.com',
         'telefone' => '(11) 98433-3615',
-        'website' => 'https://9fde943a7e20.ngrok-free.app/site-sistema-git/site-sistema/',
+        'website' => 'hhttps://e34b21e70586.ngrok-free.app/site-sistema-git/site-sistema/',
         'tipo_mensagem' => 'info', 
         'botao_acao' => null,
         'link_acao' => '#',
