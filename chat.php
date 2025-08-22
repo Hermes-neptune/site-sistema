@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) {
 
 $current_user_id = $_SESSION['id'];  
 
-$user_id_from_url = isset($_GET['user_id']) ? $_GET['user_id'] : null;
+$user_id_from_url = isset($_GET['friend_id']) ? $_GET['friend_id'] : null;
 $selected_friend = null;
 
 $stmt_amigos = $pdo->prepare("     
@@ -39,7 +39,8 @@ if ($user_id_from_url) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">     
     <title>Chat Privado</title> 
     <link rel="shortcut icon" type="image/x-icon" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
-    <link rel="stylesheet" href="css/chat.css"> 
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/emoji-styles.css">
 </head> 
 <body>  
 
@@ -102,6 +103,7 @@ if ($user_id_from_url) {
     const LOGGED_IN_USER_ID = '<?= htmlspecialchars($current_user_id); ?>';
     const SELECTED_FRIEND = <?= $selected_friend ? json_encode($selected_friend) : 'null' ?>;
 </script> 
+<script src="js/emoji-system.js"></script>
 <script src="js/friends.js"></script> 
 <script src="js/thema.js"></script>
 
