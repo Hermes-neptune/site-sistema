@@ -178,20 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
-
-    // ========== BOTÕES DE PERIGO ==========
-    const dangerButtons = document.querySelectorAll('.btn-danger');
-    dangerButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const action = this.textContent.trim();
-            const confirmMessage = `Tem certeza que deseja ${action.toLowerCase()}? Esta ação não pode ser desfeita.`;
-            
-            if (confirm(confirmMessage)) {
-                showNotification(`${action} solicitada. Entre em contato com o suporte para prosseguir.`, 'warning');
-            }
-        });
-    });
+    // ========== ZONA DE PERIGO - BOTÕES DE AÇÕES PERIGOSAS ==========
+    initializeDangerZone();
 
     // ========== LOGOUT ==========
     const logoutBtn = document.querySelector('.nav-item.logout');
@@ -228,7 +216,118 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ========== SISTEMA DE NOTIFICAÇÕES ==========
+// ========== FUNÇÕES DA ZONA DE PERIGO ==========
+
+function initializeDangerZone() {
+    const dangerButtons = document.querySelectorAll('.btn-danger');
+    
+    dangerButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const buttonId = this.id;
+            handleDangerAction(buttonId, this);
+        });
+    });
+}
+
+function handleDangerAction(buttonId, button) {
+    let action, confirmMessage, warningMessage;
+    
+    if (buttonId === 'clear-all-data') {
+        action = 'clear_all_data';
+        confirmMessage = `Tem certeza que deseja limpar todos os seus dados?
+
+• Todas as mensagens serão excluídas
+• Todas as amizades serão removidas  
+• Histórico de créditos será apagado
+• Presenças serão removidas
+• Configurações voltarão ao padrão
+
+Sua conta permanecerá ativa. Esta ação não pode ser desfeita.`;
+        warningMessage = 'ATENÇÃO: Esta ação limpará TODOS os seus dados!';
+        
+    } else if (buttonId === 'delete-account') {
+        action = 'delete_account';
+        confirmMessage = `ATENÇÃO: Você está prestes a EXCLUIR PERMANENTEMENTE sua conta!
+
+• Todos os seus dados serão perdidos
+• Não será possível recuperar a conta  
+• Esta ação é IRREVERSÍVEL
+
+Digite "CONFIRMO EXCLUSÃO" para prosseguir:`;
+        warningMessage = 'PERIGO: Esta ação excluirá sua conta permanentemente!';
+        
+    } else {
+        showNotification('Ação não reconhecida.', 'error');
+        return;
+    }
+    
+    if (!confirm(warningMessage + '\n\nDeseja continuar?')) {
+        return;
+    }
+    
+    if (buttonId === 'delete-account') {
+        const userConfirmation = prompt(confirmMessage);
+        if (userConfirmation !== 'CONFIRMO EXCLUSÃO') {
+            showNotification('Exclusão cancelada. Texto de confirmação incorreto.', 'info');
+            return;
+        }
+    } else {
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+    }
+    
+    executeDangerAction(action, button);
+}
+
+function executeDangerAction(action, button) {
+    const originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+    
+    const scriptUrl = 'process/danger_actions.php';
+    
+    fetch(scriptUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=${encodeURIComponent(action)}`
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            showNotification(data.message, 'success');
+            
+            if (data.redirect) {
+                setTimeout(() => {
+                    window.location.href = data.redirect_url;
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        } else {
+            showNotification(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Erro na requisição:', error);
+        showNotification('Erro de conexão. Tente novamente.', 'error');
+    })
+    .finally(() => {
+        button.disabled = false;
+        button.innerHTML = originalText;
+    });
+}
+
+// ========== SISTEMA DE NOTIFICAÇÕES APRIMORADO ==========
 function showNotification(message, type = 'info') {
     // Remove notificação existente
     const existing = document.querySelector('.notification');
@@ -240,17 +339,22 @@ function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     
-    // Cores baseadas no tipo
-    const colors = {
-        success: '#4CAF50',
-        error: '#f44336',
-        warning: '#ff9800',
-        info: '#2196F3'
+    // Cores e ícones baseados no tipo
+    const config = {
+        success: { color: '#4CAF50', icon: 'fa-check-circle' },
+        error: { color: '#f44336', icon: 'fa-exclamation-triangle' },
+        warning: { color: '#ff9800', icon: 'fa-exclamation-circle' },
+        info: { color: '#2196F3', icon: 'fa-info-circle' }
     };
+
+    const currentConfig = config[type] || config.info;
 
     notification.innerHTML = `
         <div class="notification-content">
-            <span>${message}</span>
+            <div class="notification-message">
+                <i class="fas ${currentConfig.icon}" style="margin-right: 8px;"></i>
+                <span>${message}</span>
+            </div>
             <button class="notification-close" aria-label="Fechar notificação">&times;</button>
         </div>
     `;
@@ -260,7 +364,7 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${colors[type] || colors.info};
+        background: ${currentConfig.color};
         color: white;
         padding: 15px 20px;
         border-radius: 8px;
@@ -331,6 +435,12 @@ notificationStyles.textContent = `
         justify-content: space-between;
         align-items: center;
         gap: 15px;
+    }
+    
+    .notification-message {
+        display: flex;
+        align-items: center;
+        flex: 1;
     }
     
     .notification-close {

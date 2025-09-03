@@ -1,41 +1,45 @@
 <?php
-    session_start();
+session_start();
 
-    require 'vendor/autoload.php';
-    require 'process/db_connect.php';
+require 'vendor/autoload.php';
+require 'process/db_connect.php';
 
-    if (!isset($_SESSION['id'])) {
-        header('Location: login.php');
-        exit();
-    }
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
+    exit();
+}
 
-    $sql = "SELECT email, username, nome_completo, rm, photo FROM users WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_SESSION['id']]);
-    $usuario = $stmt->fetch();
+$sql = "SELECT email, username, nome_completo, rm, photo FROM users WHERE id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$_SESSION['id']]);
+$usuario = $stmt->fetch();
 
-    if (!$usuario) {
-        die('Erro: Usuário não encontrado.');
-    }
-    
-    $user_photo_url = !empty($usuario['photo']) ? htmlspecialchars($usuario['photo']) : 'img/user.png';
+if (!$usuario) {
+    die('Erro: Usuário não encontrado.');
+}
+
+$user_photo_url = !empty($usuario['photo']) ? htmlspecialchars($usuario['photo']) : 'img/user.png';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurações da Conta</title>
-    <link rel="shortcut icon" type="imagex/png" href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
+    <link rel="shortcut icon" type="imagex/png"
+        href="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//Neptune.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/config.css">
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//logo-white.png" alt="logo da empresa" class="logo-img"/>
+                <img src="https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/empresa//logo-white.png"
+                    alt="logo da empresa" class="logo-img" />
             </div>
             <div class="user-info">
                 <div class="avatar">
@@ -51,7 +55,7 @@
         <aside class="sidebar">
             <div class="profile-section">
                 <div class="profile-avatar">
-                <?php echo '<img src="' . $user_photo_url . '" alt="Foto do perfil" class="header-img" />'; ?>
+                    <?php echo '<img src="' . $user_photo_url . '" alt="Foto do perfil" class="header-img" />'; ?>
                     <button class="camera-btn">
                         <i class="fas fa-camera"></i>
                     </button>
@@ -119,16 +123,22 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="firstName">Username</label>
-                                    <input type="text" id="firstName" value="<?php echo htmlspecialchars($usuario['username']); ?>" placeholder="Seu nome">
+                                    <input type="text" id="firstName"
+                                        value="<?php echo htmlspecialchars($usuario['username']); ?>"
+                                        placeholder="Seu nome">
                                 </div>
                                 <div class="form-group">
                                     <label for="lastName">Nome Completo</label>
-                                    <input type="text" id="lastName" value="<?php echo htmlspecialchars($usuario['nome_completo']); ?>" placeholder="Seu sobrenome">
+                                    <input type="text" id="lastName"
+                                        value="<?php echo htmlspecialchars($usuario['nome_completo']); ?>"
+                                        placeholder="Seu sobrenome">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" placeholder="seu@email.com">
+                                <input type="email" id="email"
+                                    value="<?php echo htmlspecialchars($usuario['email']); ?>"
+                                    placeholder="seu@email.com">
                             </div>
                             <button type="submit" class="btn-primary">Salvar Alterações</button>
                         </form>
@@ -197,7 +207,7 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            
+
                             <div class="setting-item" data-preference="push_notifications">
                                 <div class="setting-info">
                                     <p class="setting-title">Notificações Push</p>
@@ -208,7 +218,7 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            
+
                             <div class="setting-item" data-preference="message_notifications">
                                 <div class="setting-info">
                                     <p class="setting-title">Mensagens</p>
@@ -219,7 +229,7 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            
+
                             <div class="setting-item" data-preference="credit_alerts">
                                 <div class="setting-info">
                                     <p class="setting-title">Alertas de Crédito</p>
@@ -254,7 +264,7 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            
+
                             <div class="setting-item" data-privacy="show_online_status">
                                 <div class="setting-info">
                                     <p class="setting-title">Mostrar Status Online</p>
@@ -265,7 +275,7 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            
+
                             <div class="setting-item" data-privacy="allow_direct_messages">
                                 <div class="setting-info">
                                     <p class="setting-title">Permitir Mensagens Diretas</p>
@@ -276,7 +286,7 @@
                                     <span class="slider"></span>
                                 </label>
                             </div>
-                            
+
                             <div class="setting-item" data-privacy="share_activity">
                                 <div class="setting-info">
                                     <p class="setting-title">Compartilhar Atividade</p>
@@ -319,19 +329,20 @@
 
     <script src="js/config.js"></script>
     <script src="js/thema.js"></script>
-    
-<script>
-    const USER_ID = '<?php echo $_SESSION['id']; ?>';
-    const USER_DATA = {
-        id: '<?php echo $_SESSION['id']; ?>',
-        username: '<?php echo htmlspecialchars($usuario['username']); ?>',
-        email: '<?php echo htmlspecialchars($usuario['email']); ?>',
-        nome_completo: '<?php echo htmlspecialchars($usuario['nome_completo']); ?>'
-    };
-    
-    console.log('Dados do usuário carregados:', USER_DATA);
-</script>
+
+    <script>
+        const USER_ID = '<?php echo $_SESSION['id']; ?>';
+        const USER_DATA = {
+            id: '<?php echo $_SESSION['id']; ?>',
+            username: '<?php echo htmlspecialchars($usuario['username']); ?>',
+            email: '<?php echo htmlspecialchars($usuario['email']); ?>',
+            nome_completo: '<?php echo htmlspecialchars($usuario['nome_completo']); ?>'
+        };
+
+        console.log('Dados do usuário carregados:', USER_DATA);
+    </script>
 
     <script src="js/config_preferences.js"></script>
 </body>
+
 </html>

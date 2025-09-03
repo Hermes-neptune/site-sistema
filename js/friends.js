@@ -253,3 +253,107 @@ function isValidHexId(id) {
 function escapeSelector(selector) {
     return selector.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&');
 }
+
+function goBack() {
+    window.history.back();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-users');
+    const clearButton = document.getElementById('clear-search');
+    const userList = document.getElementById('add-friends-list');
+    const noResults = document.getElementById('no-results');
+    const searchInfo = document.getElementById('search-info');
+    const noUsersMessage = document.getElementById('no-users-message');
+    
+    let totalUsers = 0;
+    let visibleUsers = 0;
+    
+    function countUsers() {
+        const userCards = userList.querySelectorAll('.user-card');
+        totalUsers = userCards.length;
+        visibleUsers = totalUsers;
+        updateSearchInfo();
+    }
+    
+    function updateSearchInfo() {
+        if (totalUsers === 0) {
+            searchInfo.textContent = 'Nenhum usuário disponível';
+            return;
+        }
+        
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm === '') {
+            searchInfo.textContent = `Mostrando todos os ${totalUsers} usuário${totalUsers !== 1 ? 's' : ''} disponível${totalUsers !== 1 ? 'eis' : ''}`;
+        } else {
+            if (visibleUsers === 0) {
+                searchInfo.textContent = `Nenhum resultado para "${searchTerm}"`;
+            } else {
+                searchInfo.textContent = `${visibleUsers} usuário${visibleUsers !== 1 ? 's' : ''} encontrado${visibleUsers !== 1 ? 's' : ''} para "${searchTerm}"`;
+            }
+        }
+    }
+    
+    function searchUsers(searchTerm) {
+        const userCards = userList.querySelectorAll('.user-card');
+        visibleUsers = 0;
+        let hasResults = false;
+        
+        searchTerm = searchTerm.toLowerCase().trim();
+        
+        userCards.forEach(card => {
+            const username = card.dataset.username;
+            const shouldShow = username.includes(searchTerm);
+            
+            if (shouldShow) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.3s ease forwards';
+                visibleUsers++;
+                hasResults = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        if (searchTerm !== '' && !hasResults && totalUsers > 0) {
+            noResults.style.display = 'flex';
+            if (noUsersMessage) noUsersMessage.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            if (noUsersMessage && totalUsers === 0 && searchTerm === '') {
+                noUsersMessage.style.display = 'block';
+            }
+        }
+        
+        updateSearchInfo();
+    }
+    
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value;
+        
+        if (searchTerm.trim() !== '') {
+            clearButton.style.display = 'flex';
+        } else {
+            clearButton.style.display = 'none';
+        }
+        
+        searchUsers(searchTerm);
+    });
+    
+    clearButton.addEventListener('click', function() {
+        searchInput.value = '';
+        clearButton.style.display = 'none';
+        searchUsers('');
+        searchInput.focus();
+    });
+    
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            clearButton.style.display = 'none';
+            searchUsers('');
+        }
+    });
+    
+    countUsers();
+});

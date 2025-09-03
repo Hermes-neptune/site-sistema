@@ -1,4 +1,54 @@
-/* Botão de emoji no formulário */
+:root {
+    --bg-primary: linear-gradient(135deg, hsl(230, 100%, 97%) 0%, hsl(230, 50%, 95%) 100%);
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e9ecef;
+    --bg-quaternary: #f8f9fa;
+    --bg-hover: linear-gradient(135deg, #d4d4d6 0%, #bebdbd 100%);
+    
+    --text-primary: #0c0c0c;
+    --text-secondary: #343a40;
+    --text-muted: #6c757d;
+    
+    --border-color: #dfdcdc;
+    --border-light: #dee2e6;
+    
+    --card-bg: #ffffff;
+    --card-shadow: 0 6px 15px hsla(230, 10%, 5%, 0.5);
+    --card-shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.15);
+    
+    --accent-color: #007bff;
+    --accent-hover: #0056b3;
+    --accent-secondary: #17a2b8;
+    
+    --transition-smooth: 0.3s ease-in-out;
+    --shadow-sm: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode {
+    --bg-primary: linear-gradient(135deg, hsl(230, 24%, 8%) 0%, hsl(230, 24%, 12%) 100%);
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3d3d3d;
+    --bg-quaternary: hsl(240, 1%, 13%);
+    --bg-hover: linear-gradient(135deg, #313131 0%, #1f2020 100%);
+    
+    --text-primary: #f5f5f5;
+    --text-secondary: #f5f5f5;
+    --text-muted: #b0b0b0;
+    
+    --border-color: #4d4d4d;
+    --border-light: #555555;
+    
+    --card-bg: #2d2d2d;
+    --card-shadow: 0 6px 15px hsla(230, 10%, 2%, 0.8);
+    --card-shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.4);
+    
+    --accent-color: #1a8cff;
+    --accent-hover: #0066cc;
+    --accent-secondary: #20c997;
+    
+    --shadow-sm: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
 .message-input-area {
     align-items: center;
 }

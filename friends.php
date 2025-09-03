@@ -104,12 +104,38 @@ $outros_usuarios = $stmt_outros->fetchAll();
 
     <div class="section">
         <h2>Adicionar Amigos</h2>
-        <div class="user-list">
+        
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input 
+                    type="text" 
+                    id="search-users" 
+                    class="search-input" 
+                    placeholder="Digite o nome do usuário para pesquisar..."
+                    autocomplete="off"
+                >
+                <button type="button" class="clear-search" id="clear-search" style="display: none;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-results-info">
+                <span id="search-info">Mostrando todos os usuários disponíveis</span>
+            </div>
+        </div>
+        
+        <div class="user-list" id="add-friends-list">
             <?php if (empty($outros_usuarios)): ?>
-                <p>Não há novos usuários para adicionar.</p>
+                <p id="no-users-message">Não há novos usuários para adicionar.</p>
             <?php else: ?>
                 <?php foreach ($outros_usuarios as $user): ?>
-                    <div class="user-card" id="user-<?= $user['id'] ?>">
+                    <div class="user-card" id="user-<?= $user['id'] ?>" data-username="<?= htmlspecialchars(strtolower($user['username'])) ?>">
                         <img src="<?= htmlspecialchars($user['photo']) ?>" alt="Foto de <?= htmlspecialchars($user['username']) ?>">
                         <span><?= htmlspecialchars($user['username']) ?></span>
                         <div class="actions">
@@ -119,14 +145,17 @@ $outros_usuarios = $stmt_outros->fetchAll();
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+        
+        <div class="no-results" id="no-results" style="display: none;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <h3>Nenhum usuário encontrado</h3>
+            <p>Não encontramos usuários com esse nome. Tente pesquisar com outros termos.</p>
+        </div>
     </div>
 </div>
-
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
 
 <script src="js/friends.js"></script>
 <script src="js/thema.js"></script>

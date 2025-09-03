@@ -9,7 +9,9 @@ class EmojiSystem {
             { name: 'surpreso', url: 'https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/emoji/surpreso.png', category: 'expressions' },
             { name: 'triste', url: 'https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/emoji/triste.png', category: 'expressions' },
             { name: 'triste_2', url: 'https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/emoji/triste_2.png', category: 'expressions' },
-            
+            { name: 'surpreso_2', url: 'https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/emoji/surpreso_2.png', category: 'expressions' },
+            { name: 'bravo', url: 'https://lfcostldktmoevensqdj.supabase.co/storage/v1/object/public/emoji/bravo.png', category: 'expressions' },
+
             { name: 'fire', url: 'emojis/custom/fire.png', category: 'objects' },
             { name: 'star', url: 'emojis/custom/star.png', category: 'objects' },
             { name: 'heart', url: 'emojis/custom/heart.png', category: 'objects' },
