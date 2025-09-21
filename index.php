@@ -140,7 +140,7 @@
 
                 <div class="card creditos">
                     <div class="card-mask-point creditos-img">
-                        <img src="img/coin.png" alt="Foto do perfil" class="card-creditos" />
+                        <!-- <img src="img/coin.png" alt="Foto do perfil" class="card-creditos" /> -->
                         <div class="text-creditos">
                             <div><a>Seus Pontos</a></div>
                             <Span><?= $total_creditos ?></Span>

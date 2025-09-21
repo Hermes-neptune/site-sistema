@@ -1,0 +1,353 @@
+:root {
+        --primary-color: #314ccc;
+        --primary-hover: #2a3fb8;
+        --primary-shadow: rgba(49, 76, 204, 0.3);
+        --primary-shadow-light: rgba(49, 76, 204, 0.1);
+        
+        --bg-body: #314ccc;
+        --bg-container: white;
+        --bg-input: white;
+        --bg-input-hover: #f8f9fa;
+        --bg-back-link-hover: #f8f9fa;
+        
+        --text-primary: #333;
+        --text-secondary: #666;
+        --text-white: white;
+        
+        --border-default: #e1e5e9;
+        --border-focus: #314ccc;
+        --border-photo: #314ccc;
+        
+        --success-bg: #d4edda;
+        --success-text: #155724;
+        --success-border: #28a745;
+        
+        --error-bg: #f8d7da;
+        --error-text: #721c24;
+        --error-border: #dc3545;
+        
+        --info-bg: #e3f2fd;
+        --info-text: #1976d2;
+        --info-border: #bbdefb;
+        
+        --shadow-container: 0 15px 35px rgba(0,0,0,0.1);
+        --shadow-photo: 0 8px 20px rgba(49, 76, 204, 0.3);
+        --shadow-button: 0 8px 20px rgba(49, 76, 204, 0.3);
+        --shadow-focus: 0 0 0 3px rgba(49, 76, 204, 0.1);
+    }
+
+    .dark-mode {
+        --primary-color: #4a69ff;
+        --primary-hover: #3d5bff;
+        --primary-shadow: rgba(74, 105, 255, 0.3);
+        --primary-shadow-light: rgba(74, 105, 255, 0.1);
+        
+        --bg-body: linear-gradient(135deg, hsl(230, 24%, 8%) 0%, hsl(230, 24%, 12%) 100%);
+        --bg-container: #2d2d2d;
+        --bg-input: #3a3a3a;
+        --bg-input-hover: #404040;
+        --bg-back-link-hover: #404040;
+        
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --text-white: white;
+        
+        --border-default: #4a4a4a;
+        --border-focus: #4a69ff;
+        --border-photo: #4a69ff;
+        
+        --success-bg: #1e4620;
+        --success-text: #4caf50;
+        --success-border: #4caf50;
+        
+        --error-bg: #4a1e1e;
+        --error-text: #f44336;
+        --error-border: #f44336;
+        
+        --info-bg: #1a2b4d;
+        --info-text: #64b5f6;
+        --info-border: #42a5f5;
+        
+        --shadow-container: 0 15px 35px rgba(0,0,0,0.3);
+        --shadow-photo: 0 8px 20px rgba(74, 105, 255, 0.3);
+        --shadow-button: 0 8px 20px rgba(74, 105, 255, 0.3);
+        --shadow-focus: 0 0 0 3px rgba(74, 105, 255, 0.1);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--bg-body);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        transition: background 0.3s ease;
+    }
+
+    .container {
+        background: var(--bg-container);
+        border-radius: 15px;
+        box-shadow: var(--shadow-container);
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        color: var(--text-primary);
+        margin-bottom: 10px;
+        font-size: 2rem;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .header p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+    }
+
+    .scanner-container {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    #video {
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        border-radius: 15px;
+        background: var(--bg-input);
+        object-fit: cover;
+        border: 4px solid var(--border-photo);
+        box-shadow: var(--shadow-photo);
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #video:hover {
+        transform: scale(1.02);
+    }
+
+    .scanner-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        border: 3px solid var(--primary-color);
+        border-radius: 15px;
+        background: transparent;
+        pointer-events: none;
+        transition: border-color 0.3s ease;
+    }
+
+    .scanner-overlay::before,
+    .scanner-overlay::after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 4px solid var(--primary-color);
+        transition: border-color 0.3s ease;
+    }
+
+    .scanner-overlay::before {
+        top: -4px;
+        left: -4px;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .scanner-overlay::after {
+        bottom: -4px;
+        right: -4px;
+        border-left: none;
+        border-top: none;
+    }
+
+    .btn {
+        width: auto;
+        min-width: 150px;
+        padding: 14px 30px;
+        background: var(--primary-color);
+        color: var(--text-white);
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 10px 5px;
+    }
+
+    .btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-button);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .status {
+        margin: 20px 0;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        border-left: 4px solid;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .status.info {
+        background: var(--info-bg);
+        color: var(--info-text);
+        border-left-color: var(--info-border);
+    }
+
+    .status.success {
+        background: var(--success-bg);
+        color: var(--success-text);
+        border-left-color: var(--success-border);
+    }
+
+    .status.error {
+        background: var(--error-bg);
+        color: var(--error-text);
+        border-left-color: var(--error-border);
+    }
+
+    .qr-data {
+        background: var(--bg-input);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        text-align: left;
+        border: 2px solid var(--border-default);
+        transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .qr-data h3 {
+        margin-bottom: 15px;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+    }
+
+    .qr-data p {
+        margin: 5px 0;
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
+    }
+
+    .form-container {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid var(--border-default);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: var(--bg-input);
+        color: var(--text-primary);
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--border-focus);
+        box-shadow: var(--shadow-focus);
+    }
+
+    .form-group input:hover {
+        border-color: var(--border-focus);
+    }
+
+    .form-group input[readonly] {
+        background-color: var(--bg-input-hover);
+        cursor: not-allowed;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            margin: 10px;
+            padding: 30px 20px;
+        }
+        
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+        }
+        
+        #video {
+            height: 250px;
+        }
+        
+        .form-group input {
+            padding: 10px;
+            font-size: 14px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            font-size: 15px;
+            min-width: 120px;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    #video {
+        animation: fadeIn 0.3s ease-in-out;
+    }

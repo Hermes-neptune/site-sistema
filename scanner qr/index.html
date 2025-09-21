@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner QR - Registro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Scanner QR</h1>
+            <p>Escaneie o código QR para fazer o registro</p>
+        </div>
+
+        <div id="scanner-section">
+            <div class="scanner-container">
+                <video id="video" autoplay playsinline></video>
+                <div class="scanner-overlay"></div>
+            </div>
+            
+            <button id="startBtn" class="btn">Iniciar Scanner</button>
+            <button id="stopBtn" class="btn hidden">Parar Scanner</button>
+        </div>
+
+        <div id="status" class="status info">
+            Clique em "Iniciar Scanner" para começar
+        </div>
+
+        <div id="data-section" class="hidden">
+            <div class="qr-data">
+                <h3>📋 Dados do QR Code:</h3>
+                <p><strong>Número Escaneado:</strong> <span id="qr-content"></span></p>
+                <p><strong>Status:</strong> Preenchendo automaticamente RM, Username e Senha...</p>
+            </div>
+
+            <div class="form-container">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="rm">RM (preenchido automaticamente):</label>
+                        <input type="text" id="rm" name="rm" maxlength="5" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">Nome de usuário (preenchido automaticamente):</label>
+                        <input type="text" id="username" name="username" maxlength="20" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email (gerado automaticamente):</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Senha (preenchida automaticamente):</label>
+                        <input type="password" id="password" name="password" maxlength="20" readonly>
+                    </div>
+                    
+                    <button type="submit" class="btn">Registrar Manualmente</button>
+                    <button type="button" id="scanAgainBtn" class="btn">Escanear Novamente</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qr-scanner/1.4.2/qr-scanner.umd.min.js"></script>
+    <script>
+        class QRRegistrationApp {
+            constructor() {
+                this.scanner = null;
+                this.video = document.getElementById('video');
+                this.startBtn = document.getElementById('startBtn');
+                this.stopBtn = document.getElementById('stopBtn');
+                this.scanAgainBtn = document.getElementById('scanAgainBtn');
+                this.status = document.getElementById('status');
+                this.scannerSection = document.getElementById('scanner-section');
+                this.dataSection = document.getElementById('data-section');
+                this.qrContent = document.getElementById('qr-content');
+                this.form = document.getElementById('registrationForm');
+                
+                this.init();
+            }
+
+            init() {
+                this.startBtn.addEventListener('click', () => this.startScanner());
+                this.stopBtn.addEventListener('click', () => this.stopScanner());
+                this.scanAgainBtn.addEventListener('click', () => this.scanAgain());
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+            }
+
+            updateStatus(message, type = 'info') {
+                this.status.textContent = message;
+                this.status.className = `status ${type}`;
+            }
+
+            async startScanner() {
+                try {
+                    this.updateStatus('Solicitando acesso à câmera...', 'info');
+                    
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { 
+                            facingMode: 'environment',
+                            width: { ideal: 1280 },
+                            height: { ideal: 720 }
+                        } 
+                    });
+                    
+                    this.video.srcObject = stream;
+                    
+                    this.scanner = new QrScanner(
+                        this.video,
+                        (result) => this.handleQRResult(result.data),
+                        {
+                            highlightScanRegion: false,
+                            highlightCodeOutline: true,
+                            preferredCamera: 'environment'
+                        }
+                    );
+
+                    await this.scanner.start();
+                    
+                    this.startBtn.classList.add('hidden');
+                    this.stopBtn.classList.remove('hidden');
+                    this.updateStatus('📷 Aponte a câmera para o código QR', 'info');
+                    
+                } catch (error) {
+                    console.error('Erro ao iniciar scanner:', error);
+                    this.updateStatus('❌ Erro ao acessar a câmera. Verifique as permissões.', 'error');
+                }
+            }
+
+            stopScanner() {
+                if (this.scanner) {
+                    this.scanner.stop();
+                    this.scanner.destroy();
+                    this.scanner = null;
+                }
+                
+                if (this.video.srcObject) {
+                    this.video.srcObject.getTracks().forEach(track => track.stop());
+                    this.video.srcObject = null;
+                }
+                
+                this.startBtn.classList.remove('hidden');
+                this.stopBtn.classList.add('hidden');
+                this.updateStatus('Scanner parado', 'info');
+            }
+
+            async handleQRResult(data) {
+                this.stopScanner();
+                this.qrContent.textContent = data;
+                
+                const scannedNumber = data.trim();
+                
+                document.getElementById('rm').value = scannedNumber;
+                document.getElementById('username').value = scannedNumber;
+                document.getElementById('password').value = scannedNumber;
+                
+                this.updateStatus('✅ QR Code escaneado! Criando registro...', 'success');
+                
+                setTimeout(() => {
+                    this.createRegistration(scannedNumber);
+                }, 1500);
+            }
+
+            async createRegistration(scannedNumber) {
+                const formData = new FormData();
+                formData.append('rm', scannedNumber);
+                formData.append('username', scannedNumber);
+                formData.append('email', scannedNumber + '@feteps.com');
+                formData.append('password','feteps' + scannedNumber);
+                
+                if (scannedNumber.length !== 5 || !/^\d+$/.test(scannedNumber)) {
+                    this.updateStatus('❌ QR Code deve conter exatamente 5 dígitos', 'error');
+                    this.showFormForManualEdit(scannedNumber);
+                    return;
+                }
+                
+                this.updateStatus('📤 Criando registro...', 'info');
+                
+                try {
+                    const response = await fetch('../process/register_process.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        this.updateStatus('✅ Registro criado com sucesso!', 'success');
+                        setTimeout(() => {
+                            this.scanAgain();
+                        }, 3000);
+                    } else {
+                        const errorText = await response.text();
+                        this.updateStatus(`❌ Erro no registro: ${errorText}`, 'error');
+                        this.showFormForManualEdit(scannedNumber);
+                    }
+                    
+                } catch (error) {
+                    console.error('Erro ao enviar dados:', error);
+                    this.updateStatus('❌ Erro de conexão. Tente novamente.', 'error');
+                    this.showFormForManualEdit(scannedNumber);
+                }
+            }
+
+            showFormForManualEdit(scannedNumber) {
+                this.scannerSection.classList.add('hidden');
+                this.dataSection.classList.remove('hidden');
+                
+                document.getElementById('rm').value = scannedNumber;
+                document.getElementById('username').value = scannedNumber;
+                document.getElementById('password').value = scannedNumber;
+                document.getElementById('email').value = scannedNumber + '@escola.com';
+            }
+
+            scanAgain() {
+                document.getElementById('rm').value = '';
+                document.getElementById('username').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                
+                document.getElementById('rm').setAttribute('readonly', 'true');
+                document.getElementById('username').setAttribute('readonly', 'true');
+                document.getElementById('password').setAttribute('readonly', 'true');
+                
+                this.scannerSection.classList.remove('hidden');
+                this.dataSection.classList.add('hidden');
+                this.updateStatus('Pronto para escanear novamente', 'info');
+            }
+
+            async handleSubmit(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this.form);
+                const scannedNumber = document.getElementById('rm').value;
+                
+                document.getElementById('rm').removeAttribute('readonly');
+                document.getElementById('username').removeAttribute('readonly');
+                document.getElementById('password').removeAttribute('readonly');
+                
+                this.createRegistration(scannedNumber);
+            }
+
+            validateForm(rm, username, email, password) {
+                if (rm.length !== 5) {
+                    this.updateStatus('❌ RM deve ter exatamente 5 caracteres', 'error');
+                    return false;
+                }
+                
+                if (username.length < 3 || username.length > 20) {
+                    this.updateStatus('❌ Nome de usuário deve ter entre 3 e 20 caracteres', 'error');
+                    return false;
+                }
+                
+                if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                    this.updateStatus('❌ Nome de usuário só pode conter letras, números e sublinhados', 'error');
+                    return false;
+                }
+                
+                if (password.length < 6 || password.length > 20) {
+                    this.updateStatus('❌ Senha deve ter entre 6 e 20 caracteres', 'error');
+                    return false;
+                }
+                
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    this.updateStatus('❌ Email inválido', 'error');
+                    return false;
+                }
+                
+                return true;
+            }
+        }
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            document.getElementById('status').innerHTML = '❌ Seu navegador não suporta acesso à câmera';
+            document.getElementById('status').className = 'status error';
+        } else {
+            const app = new QRRegistrationApp();
+        }
+    </script>
+</body>
+</html>
